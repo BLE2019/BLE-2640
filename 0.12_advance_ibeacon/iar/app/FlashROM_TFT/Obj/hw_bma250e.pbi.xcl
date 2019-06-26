@@ -78,9 +78,11 @@ C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\sour
 -I
 C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT\watchdog
 -I
-C:\IAR_Systems\Embedded_Workbench_7\arm\inc
+C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\OXYGEN
 -I
-C:\IAR_Systems\Embedded_Workbench_7\arm\inc\c
+D:\SoftWare\IAR_For_ARM\arm\inc
+-I
+D:\SoftWare\IAR_For_ARM\arm\inc\c
 -I
 C:\ti\simplelink\ble_sdk_2_02_01_18\src\controller\cc26xx\inc
 -I
@@ -149,6 +151,8 @@ C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\sour
 C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT
 -I
 C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT\watchdog
+-I
+C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\OXYGEN
 -DBOARD_DISPLAY_EXCLUDE_UART=1
 -DCC2650MOD_RGZ=1
 -DCC26XX=1
@@ -163,7 +167,7 @@ C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\sour
 -Dxdc_runtime_Log_DISABLE_ALL=1
 -DPROFILE_Multibyte=1
 -DIOTXX_DISPLAY_TFT=1
--DBEACON_BASE=1
+-DBEACON_ADVANCE=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -431,8 +435,8 @@ C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\sour
 -DICALL_STACK0_ADDR=0x0000fe6d
 -DICALL_STACK0_START=0x0000fe6c
 -DICALL_RAM0_START=0x20004350
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\IAR_Systems\Embedded_Workbench_7\arm\INC\c\DLib_Config_Normal.h"
--D_DLIB_CONFIG_FILE_STRING="C:\\IAR_Systems\\Embedded_Workbench_7\\arm\\INC\\c\\DLib_Config_Normal.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="D:\SoftWare\IAR_For_ARM\arm\INC\c\DLib_Config_Normal.h"
+-D_DLIB_CONFIG_FILE_STRING="D:\\SoftWare\\IAR_For_ARM\\arm\\INC\\c\\DLib_Config_Normal.h"
 -D__VERSION__="IAR ANSI C/C++ Compiler V7.80.4.12462/W32 for ARM"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )

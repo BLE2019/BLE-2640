@@ -195,7 +195,7 @@
           <state>xdc_runtime_Log_DISABLE_ALL</state>
           <state>PROFILE_Multibyte</state>
           <state>IOTXX_DISPLAY_TFT</state>
-          <state>BEACON_BASE</state>
+          <state>BEACON_ADVANCE</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -361,6 +361,7 @@
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\uart</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT\watchdog</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\OXYGEN</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2254,6 +2255,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\common\display\TFT128.h</name>
+      </file>
+    </group>
+    <group>
+      <name>OXYGEN</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\algorithm.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.h</name>
       </file>
     </group>
     <group>

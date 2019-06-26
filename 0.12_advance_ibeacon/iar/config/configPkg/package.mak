@@ -89,7 +89,7 @@ C:/ti/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/package.xs.
 package.mak: C:/ti/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/package.xs.xdt
 endif
 
-iar.targets.arm.M3.rootDir ?= C:/IAR_Systems/Embedded_Workbench_7/arm
+iar.targets.arm.M3.rootDir ?= D:/SoftWare/IAR_For_ARM/arm
 iar.targets.arm.packageBase ?= C:/ti/tirtos_cc13xx_cc26xx_2_20_01_08/products/bios_6_46_01_38/packages/iar/targets/arm/
 .PRECIOUS: $(XDCCFGDIR)/%.orm3
 .PHONY: all,rm3 .dlls,rm3 .executables,rm3 test,rm3

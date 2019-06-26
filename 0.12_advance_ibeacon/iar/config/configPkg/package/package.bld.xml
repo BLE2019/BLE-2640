@@ -25,7 +25,7 @@
             platform="ti.platforms.tiva:TM4C1294NCPDT:1"
             isa="v7M"
             suffix="rm3"
-            rootDir="C:/IAR_Systems/Embedded_Workbench_7/arm"
+            rootDir="D:/SoftWare/IAR_For_ARM/arm"
             os="undefined"
             rts="iar.targets.arm.rts">
             <model endian="little"

@@ -2503,6 +2503,18 @@
       </file>
     </group>
     <group>
+      <name>OXYGEN</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\algorithm.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.h</name>
+      </file>
+    </group>
+    <group>
       <name>UART</name>
       <file>
         <name>$PROJ_DIR$\..\..\source\driver\uart\task_uart.c</name>
