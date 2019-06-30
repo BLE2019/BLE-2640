@@ -1,0 +1,76 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: TXZ Microsoft, Microsoft, LIC=NQQ8T-RTJY2-1PKZ5-G7RNQ-FQ86A-LA0DD
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Standard  Version: 5.14.0.0
+Toolchain Path:  D:\SoftWare\Keil\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DARMSTM.DLL V1.65.0.0
+Target DLL:      Segger\JL2CM3.dll V2.99.13.0
+Dialog DLL:      TARMSTM.DLL V1.64.0.0
+ 
+<h2>Project:</h2>
+F:\物联网\设备模块\数字式心率血氧传感器\HXDZ-30102-ACC加密资料\MAX30102（STM32驱动代码）\USER\IIC.uvproj
+Project File Date:  06/27/2019
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+compiling stm32f10x_it.c...
+compiling system_stm32f10x.c...
+compiling main.c...
+main.c(48): warning:  #177-D: variable "un_min" was declared but never referenced
+        uint32_t un_min, un_max, un_prev_data;  
+main.c(48): warning:  #177-D: variable "un_max" was declared but never referenced
+        uint32_t un_min, un_max, un_prev_data;  
+main.c(48): warning:  #177-D: variable "un_prev_data" was declared but never referenced
+        uint32_t un_min, un_max, un_prev_data;  
+main.c(49): warning:  #177-D: variable "i" was declared but never referenced
+        int i;
+main.c(50): warning:  #177-D: variable "n_brightness" was declared but never referenced
+        int32_t n_brightness;
+main.c(51): warning:  #177-D: variable "f_temp" was declared but never referenced
+        float f_temp;
+main.c(52): warning:  #177-D: variable "temp_num" was declared but never referenced
+        u8 temp_num=0;
+main.c(54): warning:  #177-D: variable "str" was declared but never referenced
+        u8 str[100];
+main.c(55): warning:  #177-D: variable "dis_hr" was declared but never referenced
+        u8 dis_hr=0,dis_spo2=0;
+main.c(55): warning:  #177-D: variable "dis_spo2" was declared but never referenced
+        u8 dis_hr=0,dis_spo2=0;
+main.c(56): warning:  #177-D: variable "key" was declared but never referenced
+        u8 key;
+main.c: 11 warnings, 0 errors
+compiling led.c...
+compiling myiic.c...
+compiling max30102.c...
+compiling algorithm.c...
+compiling oled.c...
+compiling KEY.C...
+compiling delay.c...
+compiling sys.c...
+compiling usart.c...
+compiling core_cm3.c...
+assembling startup_stm32f10x_md.s...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+compiling misc.c...
+linking...
+Program Size: Code=6848 RO-data=268 RW-data=56 ZI-data=1832  
+FromELF: creating hex file...
+"..\OBJ\IIC.axf" - 0 Error(s), 11 Warning(s).
+</pre>
+</body>
+</html>
