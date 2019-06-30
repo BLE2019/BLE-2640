@@ -2482,6 +2482,15 @@
       </file>
     </group>
     <group>
+      <name>I2C2640</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\iic2640\iic2640.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\iic2640\iic2640.h</name>
+      </file>
+    </group>
+    <group>
       <name>LCD</name>
       <file>
         <name>$PROJ_DIR$\..\..\..\common\display\DisplayEPD200.h</name>
@@ -2505,13 +2514,10 @@
     <group>
       <name>OXYGEN</name>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\algorithm.c</name>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\oxygen.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\oxygen.h</name>
       </file>
     </group>
     <group>

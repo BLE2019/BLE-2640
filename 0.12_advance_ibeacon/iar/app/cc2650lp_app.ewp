@@ -354,14 +354,15 @@
           <state>$PROJ_DIR$\..\..\..\target\LAUNCHIOT_CC2650_RGZ</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\app</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\adc</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\bma250e</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\gpio</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\i2c</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\lcd</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\iic2640</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\oxygen</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\SLEEP</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\uart</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT</state>
           <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT\watchdog</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\OXYGEN</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\i2c</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\bma250e</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2237,6 +2238,15 @@
       </file>
     </group>
     <group>
+      <name>I2C2640</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\iic2640\iic2640.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\iic2640\iic2640.h</name>
+      </file>
+    </group>
+    <group>
       <name>LCD</name>
       <file>
         <name>$PROJ_DIR$\..\..\..\common\display\DisplayEPD200.h</name>
@@ -2260,13 +2270,10 @@
     <group>
       <name>OXYGEN</name>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\algorithm.c</name>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\oxygen.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\source\driver\OXYGEN\oxygen.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\oxygen.h</name>
       </file>
     </group>
     <group>

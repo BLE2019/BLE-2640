@@ -1,12 +1,12 @@
-"C:\IAR_Systems\Embedded_Workbench_7\arm\bin\armproc.dll" 
+"D:\SoftWare\IAR_For_ARM\arm\bin\armproc.dll" 
 
-"C:\IAR_Systems\Embedded_Workbench_7\arm\bin\armxds2.dll" 
+"D:\SoftWare\IAR_For_ARM\arm\bin\armxds2.dll" 
 
 "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\stack\FlashROM\Exe\simple_peripheral_cc2650lp_stack.out" 
 
---plugin "C:\IAR_Systems\Embedded_Workbench_7\arm\bin\armbat.dll" 
+--plugin "D:\SoftWare\IAR_For_ARM\arm\bin\armbat.dll" 
 
---device_macro "C:\IAR_Systems\Embedded_Workbench_7\arm\config\debugger\TexasInstruments\CC26xx.dmac" 
+--device_macro "D:\SoftWare\IAR_For_ARM\arm\config\debugger\TexasInstruments\CC26xx.dmac" 
 
 --flash_loader "$PROJ_DIR$\..\..\..\..\..\tools\flashloader\FlashCC26xxF128RAM20_word_align.board" 
 

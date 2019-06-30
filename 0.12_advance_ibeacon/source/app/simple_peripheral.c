@@ -97,6 +97,9 @@
 #include "hw_bma250e.h"
 #include "hw_adc.h"
 #include <Watchdog.h>
+#include "oxygen.h"
+#include "iic2640.h"
+extern uint8_t rxbuf[1];
 /*********************************************************************
  * CONSTANTS
  */
@@ -145,7 +148,7 @@
 //广播Beacon数据事件的时钟周期
 #define SBP_BROADCAST_EVT_PERIOD              1500
 //广播传感器状态事件的时钟周期
-#define SBP_SENSORSTATUS_EVT_PERIOD           60000
+#define SBP_SENSORSTATUS_EVT_PERIOD           2000
 
 #ifdef FEATURE_OAD
 // The size of an OAD packet.
@@ -408,7 +411,7 @@ static void SimpleBLEPeripheral_sensorstatusHandler(UArg a0);
 
 static void air_pressure_init();
 int16_t air_pressure_get();
-static void blood_oxygen_init();
+//static void blood_oxygen_init();
 int16_t blood_oxygen_get();
 static void temperature_humidity_init();
 int8_t temperature_get();
@@ -672,7 +675,7 @@ static void SimpleBLEPeripheral_init(void)
   dispHandle = Display_open(Display_Type_LCD, NULL); //初始化LCD
   
   // UART Task欢迎语
-  //TaskUARTdoWrite(NULL, NULL, "%s\r\n", "Beacon Unit");
+  TaskUARTdoWrite(NULL, NULL, "%s\r\n", "Beacon Unit");
   GY_UartTask_RegisterPacketReceivedCallback(TransUartReceiveDataCallback);
   
   //HwI2CInit();
@@ -684,7 +687,9 @@ static void SimpleBLEPeripheral_init(void)
   //外设初始化
   HwADCInit();
   air_pressure_init();
-  blood_oxygen_init();
+  i2c_init();
+  max30102_init();
+  //oxygen_get_value();
   temperature_humidity_init();
   //更新广播信息
   parameter_update();
@@ -793,43 +798,47 @@ static void SimpleBLEPeripheral_taskFxn(UArg a0, UArg a1)
     {
       events &= ~SBP_SENSORSTATUS_EVT; 
       sensor_det_period++;
-      switch(sensor_det_period%40)
-      {
-        case 0:           //获取电池电量
-        {
-          batterypower= HwADCRead();
-	      advertData[22]=0x04;
-	      advertData[23]=(uint8_t)((batterypower>>8)&0x00ff);
-          advertData[24]=(uint8_t)(batterypower&0x00ff);
-          break;
-        }
-        case 1:           //获取气压
-        {
-          air_pressure= air_pressure_get();
-	      advertData[22]=0x05;
-	      advertData[23]=(uint8_t)((air_pressure>>8)&0x00ff);
-          advertData[24]=(uint8_t)(air_pressure&0x00ff);
-	      break;
-        }
-		case 2:           //获取血氧
-		{
-          blood_oxygen= blood_oxygen_get();
-		  advertData[22]=0x06;
-		  advertData[23]=(uint8_t)((blood_oxygen>>8)&0x00ff);
-          advertData[24]=(uint8_t)(blood_oxygen&0x00ff);
-		  break;
-        }
-	    case 3:           //获取温湿度
-		{
-          temperature= temperature_get();
-		  humidity= humidity_get();
-		  advertData[22]=0x07;
-		  advertData[23]=(uint8_t)(temperature&0x00ff);
-          advertData[24]=(uint8_t)(humidity&0x00ff);
-		  break;
-        }
-		default:break;
-	  }
+      max30102_ReadID();
+      advertData[22]=0x08;
+      advertData[23]=0x00;
+      advertData[24] = rxbuf[0];
+//      switch(sensor_det_period%40)
+//      {
+//        case 0:           //获取电池电量
+//        {
+//          batterypower= HwADCRead();
+//	      advertData[22]=0x04;
+//	      advertData[23]=(uint8_t)((batterypower>>8)&0x00ff);
+//          advertData[24]=(uint8_t)(batterypower&0x00ff);
+//          break;
+//        }
+//        case 10:           //获取气压
+//        {
+//          air_pressure= air_pressure_get();
+//	      advertData[22]=0x05;
+//	      advertData[23]=(uint8_t)((air_pressure>>8)&0x00ff);
+//          advertData[24]=(uint8_t)(air_pressure&0x00ff);
+//	      break;
+//        }
+//		case 20:           //获取血氧
+//		{
+//          blood_oxygen= blood_oxygen_get();
+//		  advertData[22]=0x06;
+//		  advertData[23]=(uint8_t)((blood_oxygen>>8)&0x00ff);
+//          advertData[24]=(uint8_t)(blood_oxygen&0x00ff);
+//		  break;
+//        }
+//	    case 30:           //获取温湿度
+//		{
+//          temperature= temperature_get();
+//		  humidity= humidity_get();
+//		  advertData[22]=0x07;
+//		  advertData[23]=(uint8_t)(temperature&0x00ff);
+//          advertData[24]=(uint8_t)(humidity&0x00ff);
+//		  break;
+//        }
+//		default:break;
+//	  }
 	  if(sensor_det_period>200)sensor_det_period=0;
 	  //重新设置广播数据
       GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
@@ -1675,13 +1684,6 @@ int16_t air_pressure_get()
   
   
   return temp;
-}
-
-//血氧获取初始化
-static void blood_oxygen_init()
-{
-
-
 }
 //获取血氧数据
 int16_t blood_oxygen_get()
