@@ -34,20 +34,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>0</state>
+          <state>6</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>Automatic choice of formatter.</state>
+          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>0</state>
+          <state>5</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>Automatic choice of formatter.</state>
+          <state>No specifier a, A, no specifier n, no float nor long long.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -195,7 +195,6 @@
           <state>xdc_runtime_Log_DISABLE_ALL</state>
           <state>PROFILE_Multibyte</state>
           <state>IOTXX_DISPLAY_TFT</state>
-          <state>BEACON_ADVANCE</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -352,17 +351,17 @@
           <state>$PROJ_DIR$\..\..\source\driver\gpio</state>
           <state>$PROJ_DIR$\..\..\..\common\display</state>
           <state>$PROJ_DIR$\..\..\..\target\LAUNCHIOT_CC2650_RGZ</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\app</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\adc</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\gpio</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\iic2640</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\oxygen</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\SLEEP</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\uart</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\WDT\watchdog</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\i2c</state>
-          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\source\driver\bma250e</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\app</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\adc</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\bma250e</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\gpio</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\i2c</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\iic2640</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\oxygen</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\lcd</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\WDT</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\WDT\watchdog</state>
+          <state>C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\source\driver\uart</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2238,7 +2237,7 @@
       </file>
     </group>
     <group>
-      <name>I2C2640</name>
+      <name>IIC2640</name>
       <file>
         <name>$PROJ_DIR$\..\..\source\driver\iic2640\iic2640.c</name>
       </file>
@@ -2270,6 +2269,12 @@
     <group>
       <name>OXYGEN</name>
       <file>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\algorithm.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\algorithm.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\source\driver\oxygen\oxygen.c</name>
       </file>
       <file>
@@ -2279,10 +2284,10 @@
     <group>
       <name>UART</name>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\uart\task_uart.c</name>
+        <name>$PROJ_DIR$\..\..\source\driver\uart\hw_uart.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\uart\task_uart.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\uart\hw_uart.h</name>
       </file>
     </group>
   </group>

@@ -3,7 +3,7 @@
  * linkcmd.xdt in the ti.platforms.tiva package and will be overwritten.
  */
 
-"C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\config\configPkg\package\cfg\app_ble_prm3.orm3"
+"C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\config\configPkg\package\cfg\app_ble_prm3.orm3"
 "C:/ti/tirtos_cc13xx_cc26xx_2_20_01_08/products/tidrivers_cc13xx_cc26xx_2_20_01_10/packages/ti/mw/display/lib/display.arm3"
 "C:/ti/tirtos_cc13xx_cc26xx_2_20_01_08/products/tidrivers_cc13xx_cc26xx_2_20_01_10/packages/ti/mw/lcd/lib/lcd.arm3"
 "C:/ti/tirtos_cc13xx_cc26xx_2_20_01_08/products/tidrivers_cc13xx_cc26xx_2_20_01_10/packages/ti/mw/grlib/lib/grlib.arm3"
@@ -13,7 +13,7 @@
 "C:/ti/tirtos_cc13xx_cc26xx_2_20_01_08/products/tidrivers_cc13xx_cc26xx_2_20_01_10/packages/ti/drivers/pdm/lib/pdm_cc26xxware.arm3"
 "C:\ti\tirtos_cc13xx_cc26xx_2_20_01_08\products\tidrivers_cc13xx_cc26xx_2_20_01_10\packages\ti\mw\fatfs\lib\release\ti.mw.fatfs.arm3"
 "C:/ti/tirtos_cc13xx_cc26xx_2_20_01_08/products/tidrivers_cc13xx_cc26xx_2_20_01_10/packages/ti/drivers/ports/lib/tirtosport.arm3"
-"C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\config\src\sysbios\rom_sysbios.arm3"
+"C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\config\src\sysbios\rom_sysbios.arm3"
 "C:\ti\tirtos_cc13xx_cc26xx_2_20_01_08\products\bios_6_46_01_38\packages\iar\targets\arm\rts\lib\release\boot.arm3"
 
 

@@ -11,7 +11,7 @@ var makeAssembly = false;
 var Executable = xdc.module('xdc.bld.Executable');
 
 var exeOpts = new Executable.Attrs({
-        cfgScript: 'C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.12_advance_ibeacon/iar/config/app_ble.cfg',
+        cfgScript: 'C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.16_advance_ibeacon/iar/config/app_ble.cfg',
         profile: 'release',
         cfgHome: 'configPkg',
 });
@@ -40,8 +40,8 @@ else {
 }
 
 var thisObj = {
-    cfg:        'C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.12_advance_ibeacon/iar/app/../config/app_ble.cfg',
-    outputPath: 'C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.12_advance_ibeacon/iar/config/configPkg',
+    cfg:        'C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.16_advance_ibeacon/iar/app/../config/app_ble.cfg',
+    outputPath: 'C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.16_advance_ibeacon/iar/config/configPkg',
     exeName:    'app_ble' + suffix,
     exeIntName: 'app_ble' + suffix.replace('.', '_'),
     targ:       targ,

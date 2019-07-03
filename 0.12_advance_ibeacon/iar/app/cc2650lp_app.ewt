@@ -2482,7 +2482,7 @@
       </file>
     </group>
     <group>
-      <name>I2C2640</name>
+      <name>IIC2640</name>
       <file>
         <name>$PROJ_DIR$\..\..\source\driver\iic2640\iic2640.c</name>
       </file>
@@ -2514,6 +2514,12 @@
     <group>
       <name>OXYGEN</name>
       <file>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\algorithm.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\oxygen\algorithm.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\source\driver\oxygen\oxygen.c</name>
       </file>
       <file>
@@ -2523,10 +2529,10 @@
     <group>
       <name>UART</name>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\uart\task_uart.c</name>
+        <name>$PROJ_DIR$\..\..\source\driver\uart\hw_uart.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\source\driver\uart\task_uart.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\uart\hw_uart.h</name>
       </file>
     </group>
   </group>

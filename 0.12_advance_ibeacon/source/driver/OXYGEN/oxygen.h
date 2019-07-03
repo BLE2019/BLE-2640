@@ -29,8 +29,11 @@
 #define REG_REV_ID 0xFE
 #define REG_PART_ID 0xFF
 
-void max30102_reset(void);
 void max30102_init(void);
 void oxygen_get_value(void);
 void max30102_ReadID(void);
+extern uint8_t rxbuf[30];
+extern uint32_t aun_ir_buffer[250]; //IR LED sensor data
+extern uint32_t aun_red_buffer[250];    //Red LED sensor data
+extern uint8_t oxygen_time;  //记录数据处理阶段
 #endif

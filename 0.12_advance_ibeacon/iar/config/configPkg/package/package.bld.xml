@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/app_ble_prm3.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.12_advance_ibeacon/iar/config/app_ble.cfg"/>
+        <srcFile name="C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.16_advance_ibeacon/iar/config/app_ble.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -25,7 +25,7 @@
             platform="ti.platforms.tiva:TM4C1294NCPDT:1"
             isa="v7M"
             suffix="rm3"
-            rootDir="D:/SoftWare/IAR_For_ARM/arm"
+            rootDir="E:/SOFT/IAR-CC2640/arm"
             os="undefined"
             rts="iar.targets.arm.rts">
             <model endian="little"
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/app_ble_prm3.cfg"
         xCfgPrefix="package/cfg/app_ble_prm3"
-        cfgScript="C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.12_advance_ibeacon/iar/config/app_ble.cfg"
+        cfgScript="C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.16_advance_ibeacon/iar/config/app_ble.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="release"
         xCfgScript="package/cfg/app_ble_prm3.cfg"
         xCfgPrefix="package/cfg/app_ble_prm3"
-        cfgScript="C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.12_advance_ibeacon/iar/config/app_ble.cfg"
+        cfgScript="C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.16_advance_ibeacon/iar/config/app_ble.cfg"
         cfgArgs="null"
         />
     </executables>

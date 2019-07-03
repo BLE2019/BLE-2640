@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"D:\SoftWare\IAR_For_ARM\common\bin\cspybat" -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.general.xcl" --backend -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.driver.xcl" 
+"E:\SOFT\IAR-CC2640\common\bin\cspybat" -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.general.xcl" --backend -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"D:\SoftWare\IAR_For_ARM\common\bin\cspybat" -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.general.xcl" "--debug_file=%~1" --backend -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.12_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.driver.xcl" 
+"E:\SOFT\IAR-CC2640\common\bin\cspybat" -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.general.xcl" "--debug_file=%~1" --backend -f "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\settings\cc2650lp_stack.FlashROM.driver.xcl" 
 
 @echo off 
 :end

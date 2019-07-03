@@ -83,7 +83,7 @@ extern int16_t air_pressure;
 extern int16_t blood_oxygen;
 extern int8_t temperature;
 extern int8_t humidity;
-extern uint8_t databuf[200];
+extern uint8_t databuf[20];
 
 /*********************************************************************
 *********************************************************************/

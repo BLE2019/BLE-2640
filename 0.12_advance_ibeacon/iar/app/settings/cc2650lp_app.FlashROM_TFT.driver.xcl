@@ -8,7 +8,7 @@
 
 "-p" 
 
-"D:\SoftWare\IAR_For_ARM\arm\CONFIG\debugger\TexasInstruments\CC2650F128.ddf" 
+"E:\SOFT\IAR-CC2640\arm\CONFIG\debugger\TexasInstruments\CC2650F128.ddf" 
 
 "--semihosting=none" 
 
@@ -20,7 +20,7 @@
 
 "--drv_swo_clock_setup=72000000,0,1000000" 
 
-"--xds_board_file=D:\SoftWare\IAR_For_ARM\arm\config\debugger\TexasInstruments\xds\CC2650_XDS110_JTAG.dat" 
+"--xds_board_file=E:\SOFT\IAR-CC2640\arm\config\debugger\TexasInstruments\xds\CC2650_XDS110_JTAG.dat" 
 
 "--xds_swo_port=none" 
 

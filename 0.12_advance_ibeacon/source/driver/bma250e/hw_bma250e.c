@@ -7,7 +7,7 @@
 
 #include "hw_bma250e_Spec.h"
 #include "hw_bma250e.h"
-
+#include "oxygen.h"
 
 extern Display_Handle dispHandle;
 GY_BMA250ECallback GY_BMA250EDataCallback;
@@ -54,6 +54,8 @@ void BMA250E_IDTest(void)
 void BMA250E_Init(void)
 {
   HwI2CSet(0x0F, 0x03);
+//  i2c_write_one_byte(0xae>>1,0x0f,0x03);
+//  i2c_write_one_byte(0xae>>1,0x0f,0x08);
   HwI2CSet(0x10, 0x08);
 }
 

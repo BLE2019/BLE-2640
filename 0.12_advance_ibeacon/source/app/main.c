@@ -59,6 +59,12 @@
 #include "bcomdef.h"
 #include "peripheral.h"
 #include "simple_peripheral.h"
+#include "hw_i2c.h"
+#include "hw_bma250e.h"
+#include "oxygen.h"
+#include "iic2640.h"
+#include "hw_gpio.h"
+
 
 /* Header files required to enable instruction fetch cache */
 #include <inc/hw_memmap.h>
@@ -200,8 +206,6 @@ int main()
 
   /* Kick off profile - Priority 3 */
   GAPRole_createTask();
-
-  //TaskUART_createTask();
   
   SimpleBLEPeripheral_createTask();
 

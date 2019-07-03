@@ -58,6 +58,8 @@
 */
 #include "algorithm.h"
 #include <stdint.h>
+#include "hw_uart.h"
+#include "oxygen.h"
 const uint16_t auw_hamm[31]={ 41,    276,    512,    276,     41 }; //Hamm=  long16(512* hamming(5)');
 //uch_spo2_table is computed as  -45.060*ratioAverage* ratioAverage + 30.354 *ratioAverage + 94.845 ;
 const uint8_t uch_spo2_table[184]={ 95, 95, 95, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98, 99, 99, 99, 99, 
@@ -120,7 +122,7 @@ void maxim_heart_rate_and_oxygen_saturation(uint32_t *pun_ir_buffer,  int32_t n_
         n_denom= ( an_x[k]+an_x[k+1]+ an_x[k+2]+ an_x[k+3]);
         an_x[k]=  n_denom/(int32_t)4; 
     }
-
+    
     // get difference of smoothed IR signal
     
     for( k=0; k<BUFFER_SIZE-MA4_SIZE-1;  k++)
@@ -155,8 +157,10 @@ void maxim_heart_rate_and_oxygen_saturation(uint32_t *pun_ir_buffer,  int32_t n_
         for (k=1; k<n_npks; k++)
             n_peak_interval_sum += (an_dx_peak_locs[k]-an_dx_peak_locs[k -1]);
         n_peak_interval_sum=n_peak_interval_sum/(n_npks-1);
-        *pn_heart_rate=(int32_t)(6000/n_peak_interval_sum);// beats per minutes
+        //HwUARTPrintf("n_peak_interval_sum=%d\r\n",n_peak_interval_sum);
+        *pn_heart_rate=(int32_t)(3000/n_peak_interval_sum);// beats per minutes
         *pch_hr_valid  = 1;
+       
     }
     else  {
         *pn_heart_rate = -999;

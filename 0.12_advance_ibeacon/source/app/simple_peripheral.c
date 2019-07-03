@@ -90,16 +90,16 @@
 #include <driverlib/ioc.h>
 #endif // USE_FPGA | DEBUG_SW_TRACE
 
-#include "task_uart.h" 
+//#include "task_uart.h" 
 #include "hw_gpio.h"
 #include "iBeaconProfile.h"
 #include "hw_i2c.h"
 #include "hw_bma250e.h"
 #include "hw_adc.h"
-#include <Watchdog.h>
 #include "oxygen.h"
 #include "iic2640.h"
-extern uint8_t rxbuf[1];
+#include "hw_uart.h"
+#include <Watchdog.h>
 /*********************************************************************
  * CONSTANTS
  */
@@ -144,11 +144,11 @@ extern uint8_t rxbuf[1];
 #define DEFAULT_CONN_PAUSE_PERIPHERAL         6
 
 // How often to perform periodic event (in msec)
-#define SBP_PERIODIC_EVT_PERIOD               5000
+#define SBP_PERIODIC_EVT_PERIOD               2200
 //广播Beacon数据事件的时钟周期
 #define SBP_BROADCAST_EVT_PERIOD              1500
 //广播传感器状态事件的时钟周期
-#define SBP_SENSORSTATUS_EVT_PERIOD           2000
+#define SBP_SENSORSTATUS_EVT_PERIOD           60000
 
 #ifdef FEATURE_OAD
 // The size of an OAD packet.
@@ -166,13 +166,13 @@ extern uint8_t rxbuf[1];
 // Internal Events for RTOS application
 #define SBP_STATE_CHANGE_EVT                0x0001
 #define SBP_CHAR_CHANGE_EVT                 0x0002
-#define SBP_PERIODIC_EVT                         0x0004
+#define SBP_PERIODIC_EVT                    0x0004
 #define SBP_CONN_EVT_END_EVT                0x0008
-#define SBP_KEY_CHANGE_EVT                    0x0010
+#define SBP_KEY_CHANGE_EVT                  0x0010
 
-#define SBP_BROADCAST_EVT                     0x0020
-#define SBP_SENSORSTATUS_EVT                 0x0040
-#define SBP_I2C_PERIODIC_EVT                  0x0080
+#define SBP_BROADCAST_EVT                   0x0020
+#define SBP_SENSORSTATUS_EVT                0x0040
+#define SBP_I2C_PERIODIC_EVT                0x0080
 /*********************************************************************
  * TYPEDEFS
  */
@@ -251,7 +251,9 @@ int8_t humidity;
 //传感器数据检测周期
 uint8_t sensor_det_period;
 
-uint8_t databuf[200];
+uint8_t databuf[20];
+
+
 
 //user
 // Profile state and parameters
@@ -374,7 +376,7 @@ static uint8_t iBeaconUUID_Factory[16]	= {0xFD,0xA5,0x06,0x93,  0xA4,0xE2,0x4F,0
 static uint8_t TxPower = LL_EXT_TX_POWER_MINUS_15_DBM;
 //static uint8_t TxPower_Factory = LL_EXT_TX_POWER_MINUS_15_DBM;
 /*广播间隔*/
-static uint16_t AdvInterval = 10;
+static uint16_t AdvInterval = 40;
 static uint16_t AdvInterval_Factory = 10;
 /*密码,20s,可以手动输入，是否需要手动输入*/
 static uint8_t Password[6] = {'1','2','3','4','5','6'};
@@ -411,7 +413,7 @@ static void SimpleBLEPeripheral_sensorstatusHandler(UArg a0);
 
 static void air_pressure_init();
 int16_t air_pressure_get();
-//static void blood_oxygen_init();
+static void blood_oxygen_init();
 int16_t blood_oxygen_get();
 static void temperature_humidity_init();
 int8_t temperature_get();
@@ -437,6 +439,8 @@ void Simple_Peripheral_NotiData(uint8_t *buf, uint16_t len);
 void SimpleBLEPeripheral_keyChangeHandler(uint8_t keys);
 static void SimpleBLEPeripheral_handleKeys(uint8_t shift, uint8_t keys);
 void RestoreFactorySettings(void);
+void oxygen_get_value1(void);
+void oxygen_get_value2(void);
 /*********************************************************************
  * PROFILE CALLBACKS
  */
@@ -547,6 +551,8 @@ static void SimpleBLEPeripheral_init(void)
   //创建读取传感器数据事件的时钟
   Util_constructClock(&sensorstatusClock, SimpleBLEPeripheral_sensorstatusHandler,
                       SBP_SENSORSTATUS_EVT_PERIOD, SBP_SENSORSTATUS_EVT_PERIOD, true, SBP_SENSORSTATUS_EVT);
+  Util_constructClock(&I2C_periodicClock, SimpleBLEPeripheral_clockHandler,
+                      SBP_PERIODIC_EVT_PERIOD, SBP_PERIODIC_EVT_PERIOD, true, SBP_I2C_PERIODIC_EVT);
   
   // Setup the GAP
   GAP_SetParamValue(TGAP_CONN_PAUSE_PERIPHERAL, DEFAULT_CONN_PAUSE_PERIPHERAL);
@@ -672,27 +678,47 @@ static void SimpleBLEPeripheral_init(void)
 
   HCI_LE_ReadMaxDataLenCmd();
 
-  dispHandle = Display_open(Display_Type_LCD, NULL); //初始化LCD
-  
+  //dispHandle = Display_open(Display_Type_LCD, NULL); //初始化LCD
+  //HwUARTInit();
   // UART Task欢迎语
-  TaskUARTdoWrite(NULL, NULL, "%s\r\n", "Beacon Unit");
+  //TaskUARTdoWrite(NULL, NULL, "%s\r\n", "Beacon Unit");
   GY_UartTask_RegisterPacketReceivedCallback(TransUartReceiveDataCallback);
   
   //HwI2CInit();
   //BMA250E_Init();
   //GY_BMA250E_RegisterPacketReceivedCallback(TransBMA250EDataCallback);
   // LED初始化
-  HwGPIOInit();
+  //HwGPIOInit();
   //HwGPIOSet(Board_GLED,0);
   //外设初始化
+   // HwUARTInit();
+  //HwUARTWrite("HelloGhostyu\r\n",14);
+  GY_UartTask_RegisterPacketReceivedCallback(TransUartReceiveDataCallback);
+  //dispHandle = Display_open(Display_Type_LCD, NULL);
+  HwGPIOInit();
+  //HwI2CInit();
+  
+  i2c_init();
+  //BMA250E_Init();
+  max30102_init();
+//  max30102_ReadID();
+//  //HwUARTWrite(rxbuf,1);
+////  
+  //oxygen_get_value();
+  
+  
   HwADCInit();
   air_pressure_init();
-  i2c_init();
-  max30102_init();
-  //oxygen_get_value();
+  blood_oxygen_init();
   temperature_humidity_init();
   //更新广播信息
   parameter_update();
+//  advertData[19]=rxbuf[0];
+//  advertData[20]=rxbuf[1];
+//  advertData[21]=rxbuf[2];
+//  advertData[22]=rxbuf[3];
+  GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
+  
 
   
 #if defined FEATURE_OAD
@@ -798,52 +824,120 @@ static void SimpleBLEPeripheral_taskFxn(UArg a0, UArg a1)
     {
       events &= ~SBP_SENSORSTATUS_EVT; 
       sensor_det_period++;
-      max30102_ReadID();
-      advertData[22]=0x08;
-      advertData[23]=0x00;
-      advertData[24] = rxbuf[0];
-//      switch(sensor_det_period%40)
-//      {
-//        case 0:           //获取电池电量
-//        {
-//          batterypower= HwADCRead();
-//	      advertData[22]=0x04;
-//	      advertData[23]=(uint8_t)((batterypower>>8)&0x00ff);
-//          advertData[24]=(uint8_t)(batterypower&0x00ff);
-//          break;
-//        }
-//        case 10:           //获取气压
-//        {
-//          air_pressure= air_pressure_get();
-//	      advertData[22]=0x05;
-//	      advertData[23]=(uint8_t)((air_pressure>>8)&0x00ff);
-//          advertData[24]=(uint8_t)(air_pressure&0x00ff);
-//	      break;
-//        }
-//		case 20:           //获取血氧
-//		{
-//          blood_oxygen= blood_oxygen_get();
-//		  advertData[22]=0x06;
-//		  advertData[23]=(uint8_t)((blood_oxygen>>8)&0x00ff);
-//          advertData[24]=(uint8_t)(blood_oxygen&0x00ff);
-//		  break;
-//        }
-//	    case 30:           //获取温湿度
-//		{
-//          temperature= temperature_get();
-//		  humidity= humidity_get();
-//		  advertData[22]=0x07;
-//		  advertData[23]=(uint8_t)(temperature&0x00ff);
-//          advertData[24]=(uint8_t)(humidity&0x00ff);
-//		  break;
-//        }
-//		default:break;
-//	  }
+      switch(sensor_det_period%40)
+      {
+        case 0:           //获取电池电量
+        {
+          batterypower= HwADCRead();
+	      advertData[22]=0x04;
+	      advertData[23]=(uint8_t)((batterypower>>8)&0x00ff);
+          advertData[24]=(uint8_t)(batterypower&0x00ff);
+          break;
+        }
+        case 1:           //获取气压
+        {
+          air_pressure= air_pressure_get();
+	      advertData[22]=0x05;
+	      advertData[23]=(uint8_t)((air_pressure>>8)&0x00ff);
+          advertData[24]=(uint8_t)(air_pressure&0x00ff);
+	      break;
+        }
+		case 2:           //获取血氧
+		{
+          blood_oxygen= blood_oxygen_get();
+		  advertData[22]=0x06;
+		  advertData[23]=(uint8_t)((blood_oxygen>>8)&0x00ff);
+          advertData[24]=(uint8_t)(blood_oxygen&0x00ff);
+		  break;
+        }
+	    case 3:           //获取温湿度
+		{
+          temperature= temperature_get();
+		  humidity= humidity_get();
+		  advertData[22]=0x07;
+		  advertData[23]=(uint8_t)(temperature&0x00ff);
+          advertData[24]=(uint8_t)(humidity&0x00ff);
+		  break;
+        }
+		default:break;
+	  }
 	  if(sensor_det_period>200)sensor_det_period=0;
 	  //重新设置广播数据
       GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
     } 
 
+    
+    if (events & SBP_I2C_PERIODIC_EVT)
+    {
+      events &= ~SBP_I2C_PERIODIC_EVT;
+      oxygen_time++;
+      oxygen_get_value();
+      uint16_t temp1=0,temp2=0;
+      advertData[17]=rxbuf[0];
+      advertData[18]=rxbuf[1];
+      advertData[19]=rxbuf[2];
+      advertData[20]=rxbuf[3];
+      advertData[21]=rxbuf[4];
+      advertData[22]=rxbuf[5];
+      advertData[23]=rxbuf[6];
+      advertData[24]=rxbuf[7];
+      GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
+//      if(oxygen_time>10)
+//      {  
+//        for(uint8_t x=0;x<10;x++)
+//        {
+//          temp1+=rxbuf[2*x];
+//          temp2+=rxbuf[2*x+1];
+//        }
+//        temp1=temp1/10;
+//        temp2=temp2/10;
+//        advertData[23]=temp1;
+//        advertData[24]=temp2;
+//        GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
+//        rxbuf[0]=0;
+//        rxbuf[1]=0;
+//        temp1=0;
+//        temp2=0;
+//        oxygen_time=0;
+//      }
+//      advertData[23]=0x01;
+//      advertData[24]=oxygen_time;
+
+//      if(oxygen_time%6==1)
+//      {
+//        max30102_ReadID();
+//        advertData[24]=rxbuf[0];
+//        GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
+//        rxbuf[0]=0;
+//      }
+//      else if(oxygen_time%6==2)
+//      {
+//        oxygen_get_value1();
+//        advertData[19]=aun_red_buffer[0];
+//        advertData[20]=aun_ir_buffer[0];
+//        advertData[21]=aun_red_buffer[1];
+//        advertData[22]=aun_ir_buffer[1];
+//        advertData[23]=aun_red_buffer[2];
+//        advertData[24]=aun_ir_buffer[2];
+//        GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
+//        rxbuf[0]=0;
+//      }
+//      else if(oxygen_time%6==3)
+//      {
+//        oxygen_get_value2();
+//        advertData[19]=cn_dx[0];
+//        advertData[20]=cn_dx[1];
+//        advertData[21]=cn_dx[2];
+//        advertData[22]=cn_dx[3];
+//        advertData[23]=cn_dx[4];
+//        advertData[24]=cn_dx[5];
+//        GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);  //设置需要广播的数据包
+//      }
+//      if(oxygen_time>200)oxygen_time=0;
+    }    
+    
+    
+    
 //user
 
 #ifdef FEATURE_OAD
@@ -1483,25 +1577,25 @@ static void SimpleBLEPeripheral_clockHandler(UArg arg)
   // Wake up the application.
   Semaphore_post(sem);
 }
-//watchdog
-
-/*********************************************************************
- * @fn      SimpleBLEPeripheral_broadcastHandler
- *
- * @brief   Handler function for boradcast.
- *
- * @param   a0 - event type
- *
- * @return  None.
- */
-static void SimpleBLEPeripheral_broadcastHandler(UArg a0)
-{
-  // Store the event.
-  events |= SBP_BROADCAST_EVT;
-
-  // Wake up the application.
-  Semaphore_post(sem);
-}
+////watchdog
+//
+///*********************************************************************
+// * @fn      SimpleBLEPeripheral_broadcastHandler
+// *
+// * @brief   Handler function for boradcast.
+// *
+// * @param   a0 - event type
+// *
+// * @return  None.
+// */
+//static void SimpleBLEPeripheral_broadcastHandler(UArg a0)
+//{
+//  // Store the event.
+//  events |= SBP_BROADCAST_EVT;
+//
+//  // Wake up the application.
+//  Semaphore_post(sem);
+//}
 
 /*********************************************************************
  * @fn      SimpleBLEPeripheral_sensorstatusHandler
@@ -1684,6 +1778,13 @@ int16_t air_pressure_get()
   
   
   return temp;
+}
+
+//血氧获取初始化
+static void blood_oxygen_init()
+{
+
+
 }
 //获取血氧数据
 int16_t blood_oxygen_get()

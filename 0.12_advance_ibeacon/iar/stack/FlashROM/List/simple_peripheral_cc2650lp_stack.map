@@ -1,48 +1,48 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.80.4.12462/W32 for ARM                25/May/2019  16:59:28
+# IAR ELF Linker V7.80.4.12462/W32 for ARM                02/Jul/2019  10:06:26
 # Copyright 2007-2017 IAR Systems AB.
 #
 #    Output file  =  
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Exe\simple_peripheral_cc2650lp_stack.out
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Exe\simple_peripheral_cc2650lp_stack.out
 #    Map file     =  
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\List\simple_peripheral_cc2650lp_stack.map
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\List\simple_peripheral_cc2650lp_stack.map
 #    Command line =  
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\ble_dispatch.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\ble_user_config.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\gap.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\gapbondmgr.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\gattservapp_util.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\hal_assert.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\hal_flash_wrapper.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\hal_trng_wrapper.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\icall_startup.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\npi.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\onboard.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_bufmgr.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_cbtimer.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_clock.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_icall_ble.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_memory_icall.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_pwrmgr.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_snv_wrapper.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\osal_timers.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\rom_jt.o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj\sm_ecc.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\ble_dispatch.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\ble_user_config.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\gap.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\gapbondmgr.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\gattservapp_util.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\hal_assert.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\hal_flash_wrapper.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\hal_trng_wrapper.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\icall_startup.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\npi.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\onboard.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_bufmgr.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_cbtimer.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_clock.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_icall_ble.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_memory_icall.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_pwrmgr.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_snv_wrapper.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\osal_timers.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\rom_jt.o
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj\sm_ecc.o
 #        -o
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Exe\simple_peripheral_cc2650lp_stack.out
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Exe\simple_peripheral_cc2650lp_stack.out
 #        --config_def FLASH_ROM_BUILD=1 --config_def CC2650=1 --map
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\List\simple_peripheral_cc2650lp_stack.map
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\List\simple_peripheral_cc2650lp_stack.map
 #        --config
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\..\..\..\..\..\src/common/cc26xx/iar/cc26xx_stack.icf
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\..\..\..\..\..\src/common/cc26xx/iar/cc26xx_stack.icf
 #        -f
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack/../config/lib_linker.cmd
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack/../config/lib_linker.cmd
 #        (C:\ti\simplelink\ble_sdk_2_02_01_18\blelib\host\host_pxxx.a
 #        C:\ti\simplelink\ble_sdk_2_02_01_18\blelib\ctrl\cc2640\cc2640_ctrl_pxxx.a
 #        C:\ti\simplelink\ble_sdk_2_02_01_18\blelib\hci_tl\cc26xx\cc26xx_hci_tl_none.a)
 #        --semihosting
-#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\..\..\..\..\..\src\rom/ble_rom_releases/04242014/ble_rom_patch.symbols
+#        C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\..\..\..\..\..\src\rom/ble_rom_releases/04242014/ble_rom_patch.symbols
 #        C:\ti\tirtos_cc13xx_cc26xx_2_20_01_08\products\cc26xxware_2_24_02_17393\driverlib\bin\iar\driverlib.lib
 #        --entry startup_entry --vfe
 #
@@ -422,7 +422,7 @@ Copy/packbits (__iar_packbits_init_single3)
 
     Module                       ro code  ro data  rw data
     ------                       -------  -------  -------
-C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj: [1]
+C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj: [1]
     ble_dispatch.o                 2 404                57
     ble_user_config.o                116
     gap.o                             52
@@ -1991,7 +1991,7 @@ writeWord               0x00014223    0x70  Code  Lc  osal_snv_wrapper.o [1]
 xor_128                 0x00019ecf    0x14  Code  Lc  sm_mgr.o [8]
 
 
-[1] = C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.11_advance_ibeacon\iar\stack\FlashROM\Obj
+[1] = C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.16_advance_ibeacon\iar\stack\FlashROM\Obj
 [2] = C:\ti\simplelink\ble_sdk_2_02_01_18\src\rom\ble_rom_releases\04242014
 [3] = command line
 [4] = cc2640_ctrl_pxxx.a

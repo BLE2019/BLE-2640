@@ -6,7 +6,7 @@
 #include "icall.h"
 #include <stdlib.h>
 #include <string.h>
-//#include "hw_uart.h"
+#include "hw_uart.h"
 I2CCC26XX_Object _i2cCC26xxObjects[CC2640R2_LAUNCHXL_I2CCOUNT];
 
 const I2CCC26XX_HWAttrsV1 _i2cCC26xxHWAttrs[CC2640R2_LAUNCHXL_I2CCOUNT] =
