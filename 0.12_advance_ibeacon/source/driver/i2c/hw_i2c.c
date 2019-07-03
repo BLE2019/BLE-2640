@@ -7,8 +7,8 @@
 /*********************************************************************
  * LOCAL PARAMETER
  */
-#define Slave_Addr_write        0xAE
-#define Slave_Addr_read        0xAF
+#define Slave_Addr        0x40
+
 I2C_Handle I2CHandle;
 I2C_Params I2Cparams;
 
@@ -34,8 +34,8 @@ void HwI2CInit(void)
   I2Cparams.custom = NULL;
   I2Cparams.transferCallbackFxn = NULL;
   I2Cparams.transferMode = I2C_MODE_BLOCKING;
-//  I2Cparams.transferCallbackFxn = I2C_transferCallback;
-//  I2Cparams.transferMode = I2C_MODE_CALLBACK;
+  //I2Cparams.transferCallbackFxn = I2C_transferCallback;
+  //I2Cparams.transferMode = I2C_MODE_CALLBACK;
   
   I2CHandle = I2C_open(CC2650_LAUNCHXL_I2C0,&I2Cparams);
 }
@@ -49,19 +49,21 @@ void HwI2CInit(void)
  *
  * @return  None.
  */
-bool HwI2CSet(uint8_t RegAddr, uint8_t WriteBuf)
+bool HwI2CSet(uint8_t RegAddr, uint8_t *WriteBuf, uint8_t len)
 {
   bool ret = false;
   uint8_t buf[2] = {0};
   buf[0] = RegAddr;
-  buf[1] = WriteBuf;
+  for (uint8_t i = 1; i <= len; i++) {
+    buf[i] = WriteBuf[i - 1];
+  }
   
   I2C_Transaction i2cTransaction;
   i2cTransaction.writeBuf = buf;
-  i2cTransaction.writeCount = 2;
+  i2cTransaction.writeCount = len + 1;
   i2cTransaction.readBuf = NULL;
   i2cTransaction.readCount = 0;
-  i2cTransaction.slaveAddress = Slave_Addr_write;
+  i2cTransaction.slaveAddress = Slave_Addr;
   i2cTransaction.arg = NULL;
   ret = I2C_transfer(I2CHandle, &i2cTransaction);
   return ret;
@@ -84,7 +86,7 @@ bool HwI2CGet(uint8_t RegAddr, uint8_t *ReadBuf, uint8_t ReadLen)
   i2cTransaction.writeCount = 1;
   i2cTransaction.readBuf = ReadBuf;
   i2cTransaction.readCount = ReadLen;
-  i2cTransaction.slaveAddress = Slave_Addr_read;
+  i2cTransaction.slaveAddress = Slave_Addr;
   i2cTransaction.arg = NULL;
   ret = I2C_transfer(I2CHandle, &i2cTransaction);
   return ret;

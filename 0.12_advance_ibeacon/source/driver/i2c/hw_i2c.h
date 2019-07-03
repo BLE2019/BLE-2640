@@ -20,7 +20,7 @@ bool HwI2CGet(uint8_t RegAddr, uint8_t *ReadBuf, uint8_t ReadLen);
 /*********************************************************************
  * I2CÅäÖÃ¼Ä´æÆ÷
  */
-bool HwI2CSet(uint8_t RegAddr, uint8_t WriteBuf);
+bool HwI2CSet(uint8_t RegAddr, uint8_t *WriteBuf, uint8_t len);
 
 
 #ifdef __cplusplus
