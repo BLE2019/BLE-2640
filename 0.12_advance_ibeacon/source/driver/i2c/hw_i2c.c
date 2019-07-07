@@ -36,7 +36,7 @@ void HwI2CInit(void)
   I2Cparams.transferMode = I2C_MODE_BLOCKING;
   //I2Cparams.transferCallbackFxn = I2C_transferCallback;
   //I2Cparams.transferMode = I2C_MODE_CALLBACK;
-  
+
   I2CHandle = I2C_open(CC2650_LAUNCHXL_I2C0,&I2Cparams);
 }
 
@@ -57,7 +57,7 @@ bool HwI2CSet(uint8_t RegAddr, uint8_t *WriteBuf, uint8_t len)
   for (uint8_t i = 1; i <= len; i++) {
     buf[i] = WriteBuf[i - 1];
   }
-  
+
   I2C_Transaction i2cTransaction;
   i2cTransaction.writeBuf = buf;
   i2cTransaction.writeCount = len + 1;
@@ -92,3 +92,16 @@ bool HwI2CGet(uint8_t RegAddr, uint8_t *ReadBuf, uint8_t ReadLen)
   return ret;
 }
 
+bool HwI2CGetData(uint8_t *ReadBuf, uint8_t ReadLen)
+{
+  bool ret = false;
+  I2C_Transaction i2cTransaction;
+  i2cTransaction.writeBuf = NULL;
+  i2cTransaction.writeCount = 0;
+  i2cTransaction.readBuf = ReadBuf;
+  i2cTransaction.readCount = ReadLen;
+  i2cTransaction.slaveAddress = Slave_Addr;
+  i2cTransaction.arg = NULL;
+  ret = I2C_transfer(I2CHandle, &i2cTransaction);
+  return ret;
+}

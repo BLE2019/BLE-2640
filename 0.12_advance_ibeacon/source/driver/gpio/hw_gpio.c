@@ -4,16 +4,15 @@
 
 /*********************************************************************
  * LOCAL PARAMETER
- */   
+ */
 PIN_Handle GPIOHandle;
 PIN_State GPIOState;
 PIN_Config GPIOTable[] =
 {
   Board_SHT20 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-//  Board_RLED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-//  Board_GLED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-// 
-  
+  //Board_I2C0_SDA0 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
+  //Board_I2C0_SCL0 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
+
   PIN_TERMINATE
 };
 
@@ -48,5 +47,10 @@ void HwGPIOInit(void)
 void HwGPIOSet(uint32_t pin, uint8_t flag)
 {
   PIN_setOutputValue(GPIOHandle, pin, flag);
+}
+
+uint8_t HwGPIOGet(uint32_t pin)
+{
+    PIN_getInputValue(pin) ? 1 : 0;
 }
 

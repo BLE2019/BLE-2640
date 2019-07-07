@@ -8,7 +8,7 @@
  Target Device: CC2650, CC2640, CC1350
 
  ******************************************************************************
- 
+
  Copyright (c) 2012-2016, Texas Instruments Incorporated
  All rights reserved.
 
@@ -74,7 +74,7 @@
 #define SHT21_CMD_SOFT_RST         0xFE // command soft reset
 
 #define HUMIDITY                   0x00
-#define TEMPERATURE	           0x01
+#define TEMPERATURE                0x01
 
 #define USR_REG_MASK               0x38  // Mask off reserved bits (3,4,5)
 #define USR_REG_DEFAULT            0x02  // Disable OTP reload
@@ -86,8 +86,9 @@
 #define DATA_SIZE                  6
 
 // Sensor selection/deselection
-#define SENSOR_SELECT()                     HwGPIOSet(Board_SHT20, 1)
-#define SENSOR_DESELECT()                   HwGPIOSet(Board_SHT20, 0)
+#define SENSOR_SELECT()            HwGPIOSet(Board_SHT20, 1)
+#define SENSOR_DESELECT()          HwGPIOSet(Board_SHT20, 0)
+
 
 /* ------------------------------------------------------------------------------------------------
 *                                           Type Definitions
@@ -98,25 +99,25 @@
 *                                           Local Functions
 * ------------------------------------------------------------------------------------------------
 */
-static bool sensorSht21ReadData(uint8_t *pBuf,uint8_t nBytes);
+static bool sensorSht21ReadData(uint8_t *pBuf, uint8_t nBytes);
 static bool sensorSht21WriteCmd(uint8_t cmd);
 
 static bool sensorReadReg(uint8_t addr, uint8_t *pBuf, uint8_t len)
 {
-  return HwI2CGet(addr, pBuf, len);
+    return HwI2CGet(addr, pBuf, len);
 }
 static bool sensorWriteReg(uint8_t addr, uint8_t *pBuf, uint8_t len)
 {
-  return HwI2CSet(addr, pBuf, len);
+    return HwI2CSet(addr, pBuf, len);
 }
 
 /* ------------------------------------------------------------------------------------------------
 *                                           Local Variables
 * ------------------------------------------------------------------------------------------------
 */
-static uint8_t usr;                         // Keeps user register value
-static uint8_t buf[DATA_SIZE];              // Data buffer
-static bool  success;
+static uint8_t usr = 0;                         // Keeps user register value
+static uint8_t buf[DATA_SIZE] = {0};              // Data buffer
+static bool  success = false;
 
 /**************************************************************************************************
 * @fn          sensorSht21Init
@@ -127,16 +128,14 @@ static bool  success;
 **************************************************************************************************/
 void sensorSht21Init(void)
 {
-  SENSOR_SELECT();
-
-  // Set 11 bit resolution
-  sensorReadReg(SHT21_CMD_READ_U_R,&usr,1);
-  usr &= USR_REG_RES_MASK;
-  usr |= USR_REG_11BITRES;
-  sensorWriteReg(SHT21_CMD_WRITE_U_R,&usr,1);
-  success = true;
-  
-  SENSOR_DESELECT();
+    SENSOR_SELECT();
+    // Set 11 bit resolution
+    sensorReadReg(SHT21_CMD_READ_U_R, &usr, 1);
+    usr &= USR_REG_RES_MASK;
+    usr |= USR_REG_11BITRES;
+    sensorWriteReg(SHT21_CMD_WRITE_U_R, &usr, 1);
+    success = true;
+    //SENSOR_DESELECT();
 }
 
 /**************************************************************************************************
@@ -148,12 +147,7 @@ void sensorSht21Init(void)
 */
 void sensorSht21StartTempMeasure(void)
 {
-  if (success)
-  {
-    SENSOR_SELECT();
     success = sensorSht21WriteCmd(SHT21_CMD_TEMP_T_NH);
-    SENSOR_DESELECT();
-  }
 }
 
 /**************************************************************************************************
@@ -165,12 +159,22 @@ void sensorSht21StartTempMeasure(void)
 */
 void sensorSht21LatchTempMeasure(void)
 {
-  if (success)
-  {
-    SENSOR_SELECT();
-    success = sensorSht21ReadData(buf, DATA_LEN);
-    SENSOR_DESELECT();
-  }
+  do {
+      success = sensorSht21ReadData(buf, DATA_LEN);
+  } while (success == 0);
+}
+
+void sensorSht21ReadTem()
+{
+    uint16_t tmp, hum;
+    float outTmp = 0.0, outHum = 0.0;
+    sensorSht21StartTempMeasure();
+    sensorSht21LatchTempMeasure();
+    sensorSht21Read(&tmp, &hum);
+    sensorSht21Convert(tmp, hum, &outTmp, &outHum);
+    if (outTmp) {
+      outHum = outTmp;
+    }
 }
 
 /**************************************************************************************************
@@ -182,12 +186,9 @@ void sensorSht21LatchTempMeasure(void)
 */
 void sensorSht21StartHumMeasure(void)
 {
-  if (success)
-  {
-    SENSOR_SELECT();
-    success = sensorSht21WriteCmd(SHT21_CMD_HUMI_T_NH);
-    SENSOR_DESELECT();
-  }
+    if (success) {
+        success = sensorSht21WriteCmd(SHT21_CMD_HUMI_T_NH);
+    }
 }
 
 /**************************************************************************************************
@@ -199,23 +200,19 @@ void sensorSht21StartHumMeasure(void)
 */
 void sensorSht21LatchHumMeasure(void)
 {
-  if (success)
-  {
-    SENSOR_SELECT();
-    success = sensorSht21ReadData(buf+DATA_LEN, DATA_LEN);
-    SENSOR_DESELECT();
-  }
+    if (success) {
+        success = sensorSht21ReadData(buf + DATA_LEN, DATA_LEN);
+    }
 }
 /* Data to when an error occurs */
 #define ST_ERROR_DATA                         0xCC
 
 void sensorSetErrorData(uint8_t *pBuf, uint8_t n)
 {
-  while (n > 0)
-  {
-    n--;
-    pBuf[n] = ST_ERROR_DATA;
-  }
+    while (n > 0) {
+        n--;
+        pBuf[n] = ST_ERROR_DATA;
+    }
 }
 
 
@@ -228,24 +225,21 @@ void sensorSetErrorData(uint8_t *pBuf, uint8_t n)
 */
 bool sensorSht21Read(uint16_t *rawTemp, uint16_t *rawHum)
 {
-  bool valid;
-  
-  valid = success;
-  if (!success)
-  {
-    sensorSetErrorData(buf,DATA_SIZE);
-  }
-  
-  // Store temperature
-  *rawTemp = buf[0]<<8 | buf[1];
-  // [2] ignore CRC
-  // Store humidity
-  *rawHum = buf[3]<<8 | buf[4];
-  // [5] ignore CRC
-  
-  success = true; // Ready for next cycle
-  
-  return valid;
+    bool valid;
+    valid = success;
+
+    if (!success) {
+        sensorSetErrorData(buf, DATA_SIZE);
+    }
+
+    // Store temperature
+    *rawTemp = buf[0] << 8 | buf[1];
+    // [2] ignore CRC
+    // Store humidity
+    *rawHum = buf[3] << 8 | buf[4];
+    // [5] ignore CRC
+    success = true; // Ready for next cycle
+    return valid;
 }
 
 /**************************************************************************************************
@@ -263,13 +257,12 @@ bool sensorSht21Read(uint16_t *rawTemp, uint16_t *rawHum)
  **************************************************************************************************/
 void sensorSht21Convert(uint16_t rawTemp, uint16_t rawHum,  float *temp, float *hum)
 {
-  //-- calculate temperature [°C] --
-  rawTemp &= ~0x0003; // clear bits [1..0] (status bits)
-  *temp = -46.85 + 175.72/65536 *(double)(int16_t)rawTemp;    
-
-  rawHum &= ~0x0003; // clear bits [1..0] (status bits)
-  //-- calculate relative humidity [%RH] --
-  *hum = -6.0 + 125.0/65536 * (double)rawHum; // RH= -6 + 125 * SRH/2^16
+    //-- calculate temperature [°C] --
+    rawTemp &= ~0x0003; // clear bits [1..0] (status bits)
+    *temp = -46.85 + 175.72 / 65536 * (double)(int16_t)rawTemp;
+    rawHum &= ~0x0003; // clear bits [1..0] (status bits)
+    //-- calculate relative humidity [%RH] --
+    *hum = -6.0 + 125.0 / 65536 * (double)rawHum; // RH= -6 + 125 * SRH/2^16
 }
 
 
@@ -282,21 +275,18 @@ void sensorSht21Convert(uint16_t rawTemp, uint16_t rawHum,  float *temp, float *
 **************************************************************************************************/
 bool sensorSht21Test(void)
 {
-  uint8_t val;
+    uint8_t val;
+    // Verify write and read
+    val = USR_REG_TEST_VAL;
+    sensorWriteReg(SHT21_CMD_WRITE_U_R, &val, 1);
+    val = 0;
+    sensorReadReg(SHT21_CMD_READ_U_R, &val, 1);
 
-  SENSOR_SELECT();
+    if (val == USR_REG_TEST_VAL) {
+        return true;
+    }
 
-  // Verify write and read
-  val = USR_REG_TEST_VAL;
-  sensorWriteReg(SHT21_CMD_WRITE_U_R,&val,1);
-  sensorReadReg(SHT21_CMD_READ_U_R,&val,1);
-  if (val == USR_REG_TEST_VAL) {
-    return true;
-  }
-  
-  SENSOR_DESELECT();
-  
-  return false;
+    return false;
 }
 
 
@@ -316,8 +306,8 @@ bool sensorSht21Test(void)
 **************************************************************************************************/
 static bool sensorSht21WriteCmd(uint8_t cmd)
 {
-  /* Send command */
-  return sensorWriteReg(cmd, NULL, 0);
+    /* Send command */
+    return sensorWriteReg(cmd, NULL, 0);
 }
 
 
@@ -334,8 +324,8 @@ static bool sensorSht21WriteCmd(uint8_t cmd)
 **************************************************************************************************/
 static bool sensorSht21ReadData(uint8_t *pBuf, uint8_t nBytes)
 {
-  /* Read data */
-  return sensorReadReg(*pBuf, pBuf + 1, nBytes - 1);
+    /* Read data */
+    return HwI2CGetData(pBuf, nBytes);
 }
 
 

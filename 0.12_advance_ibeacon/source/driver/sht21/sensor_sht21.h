@@ -72,7 +72,7 @@ void sensorSht21LatchHumMeasure(void);
 bool sensorSht21Read(uint16_t *rawHum, uint16_t *rawTemp);
 void sensorSht21Convert(uint16_t rawHum, uint16_t rawTemp, float *temp, float *hum);
 bool sensorSht21Test(void);
-
+void sensorSht21ReadTem();
 /*********************************************************************/
 
 #ifdef __cplusplus
