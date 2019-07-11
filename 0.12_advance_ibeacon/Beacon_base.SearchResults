@@ -1,6 +1,0 @@
----- SBP_SENSORSTATUS_EVT Matches (5 in 1 files) ----
-Simple_peripheral.c (source\app):#define SBP_SENSORSTATUS_EVT                 0x0040
-Simple_peripheral.c (source\app):                      SBP_SENSORSTATUS_EVT_PERIOD, SBP_SENSORSTATUS_EVT_PERIOD, true, SBP_SENSORSTATUS_EVT);
-Simple_peripheral.c (source\app):     if (events & SBP_SENSORSTATUS_EVT)
-Simple_peripheral.c (source\app):      events &= ~SBP_SENSORSTATUS_EVT; 
-Simple_peripheral.c (source\app):  events |= SBP_SENSORSTATUS_EVT;

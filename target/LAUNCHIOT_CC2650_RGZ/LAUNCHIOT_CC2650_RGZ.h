@@ -237,10 +237,9 @@ extern const PIN_Config BoardGpioInitTable[];
 #define RTC_SCLK                        IOID_6
 #define RTC_DIO                          IOID_7
 #define RTC_nRST                        IOID_8
-#define BAROMETER_POWER      IOID_12
+#define BAROMETER_POWER                 IOID_12
 /* other not used pin  */
 #define Board_DIO9                    IOID_9
-#define Board_DIO12                  IOID_12
 #define Board_DIO13                  IOID_13
 #define Board_DIO14                  IOID_14
 #define Board_DIO15                  IOID_15
@@ -257,8 +256,21 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_DIO28                  IOID_28
 #define Board_DIO29                  IOID_29
 #define Board_DIO30                  IOID_30
-
-
+#define Board_BTN1                   PIN_UNASSIGNED
+#define Board_BTN2                   PIN_UNASSIGNED
+#define Board_UART_TX                PIN_UNASSIGNED
+#define Board_UART_RX                PIN_UNASSIGNED
+#define Board_SPI0_MOSI              PIN_UNASSIGNED
+#define Board_SPI0_MISO              PIN_UNASSIGNED
+#define Board_SPI0_CLK               PIN_UNASSIGNED
+#define Board_SPI0_CSN               PIN_UNASSIGNED
+#define Board_LCD_MODE               PIN_UNASSIGNED
+#define Board_LCD_CSN                PIN_UNASSIGNED
+#define Board_3V3_EN                 PIN_UNASSIGNED
+#define Board_PWMRED                 PIN_UNASSIGNED
+#define Board_PWMGREEN               PIN_UNASSIGNED
+#define Board_PWMBLUE                PIN_UNASSIGNED
+#define Board_PWMBuzzer              PIN_UNASSIGNED
 #else                               //Ô­°å×Ó
 /* Discrete outputs */
 #define Board_RLED                   IOID_6
@@ -279,8 +291,8 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_SPI0_CSN               PIN_UNASSIGNED
 #define Board_SPI_FLASH_CSN          IOID_12
 /* I2C */
-#define Board_I2C0_SCL0              IOID_4
-#define Board_I2C0_SDA0              IOID_5
+#define Board_I2C0_SCL0              IOID_0
+#define Board_I2C0_SDA0              IOID_1
 /* PWM outputs */
 #define Board_PWMBuzzer              IOID_19
 #define Board_PWMRED                 IOID_20

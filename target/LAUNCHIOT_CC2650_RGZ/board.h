@@ -60,6 +60,8 @@ extern "C" {
 #define     Board_ADCBufChannel0    (0)
 #define     Board_ADCBufChannel1    (1)
 
+#define     Board_SHT20             IOID_3
+
 #define     Board_initGeneral() { \
     Power_init(); \
     if (PIN_init(BoardGpioInitTable) != PIN_SUCCESS) \
