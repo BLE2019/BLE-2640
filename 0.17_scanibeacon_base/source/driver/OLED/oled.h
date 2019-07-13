@@ -1,3 +1,4 @@
+#ifdef SCANBEACON_ADVANCE
 #ifndef _OLED_H
 #define _OLED_H
 
@@ -24,4 +25,5 @@ typedef enum {
 void OLED_Clear(void);
 void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr);
 void OLED_Init(void);
+#endif
 #endif

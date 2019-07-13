@@ -85,11 +85,11 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_UART_RX               IOID_27
 #define Board_UART_TX               IOID_26
 /* SPI Board */
-#define Board_SPI0_MISO            IOID_8
-#define Board_SPI0_MOSI            IOID_7
-#define Board_SPI0_CLK               IOID_6
-#define Board_SPI0_CSN              PIN_UNASSIGNED
-#define Board_SPI_FLASH_CSN         IOID_23
+#define Board_SPI0_MISO                 IOID_8
+#define Board_SPI0_MOSI                 IOID_7
+#define Board_SPI0_CLK                  IOID_6
+#define Board_SPI0_CSN                  PIN_UNASSIGNED
+#define LoRa_SPI0_CS                    IOID_23
 /* I2C */
 #define Board_I2C0_SCL0             IOID_0
 #define Board_I2C0_SDA0             IOID_1
@@ -101,9 +101,9 @@ extern const PIN_Config BoardGpioInitTable[];
 /* ADC outputs */
 #define Board_DIO30_ADC             IOID_5
 /* LCD Control pin */
-#define Board_LCD_MODE              IOID_13   
-#define Board_LCD_CSN               IOID_12
-#define Board_3V3_EN                IOID_11
+#define OLED_SPI_RESET               IOID_13   
+#define OLED_SPI_CS                  IOID_12
+#define OLED_POWER_EN                IOID_11
 /* other not used pin  */
 #define Board_DIO2                   IOID_2
 #define Board_DIO3                   IOID_3
@@ -127,14 +127,14 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_BTN1                      IOID_21
 #define Board_BTN2                      IOID_22
 /* UART Board */
-#define Board_UART_RX                   IOID_27
-#define Board_UART_TX                   IOID_26
+#define Board_UART_RX                   PIN_UNASSIGNED
+#define Board_UART_TX                   PIN_UNASSIGNED
 /* SPI Board */
 #define Board_SPI0_MISO                 IOID_8
 #define Board_SPI0_MOSI                 IOID_7
 #define Board_SPI0_CLK                  IOID_6
 #define Board_SPI0_CSN                  PIN_UNASSIGNED
-#define Board_SPI_FLASH_CSN             IOID_23
+#define LoRa_SPI0_CS                    IOID_23
 /* I2C */
 #define Board_I2C0_SCL0                 IOID_0
 #define Board_I2C0_SDA0                  IOID_1
@@ -146,11 +146,11 @@ extern const PIN_Config BoardGpioInitTable[];
 /* ADC outputs */
 #define Board_DIO30_ADC             IOID_5
 /* LCD Control pin */
-#define Board_LCD_MODE              IOID_13   
-#define Board_LCD_CSN               IOID_12
-#define Board_3V3_EN                IOID_11
+#define OLED_SPI_RESET               IOID_13   
+#define OLED_SPI_CS                  IOID_12
+#define OLED_POWER_EN                IOID_11
 /* other not used pin  */
-#define Board_MOTOR                  IOID_29
+
 #define Board_DIO2                   IOID_2
 #define Board_DIO3                   IOID_3
 #define Board_DIO4                   IOID_4
@@ -159,10 +159,14 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_DIO15                 IOID_14
 #define Board_DIO18                 IOID_18
 #define Board_DIO24                 IOID_24
-#define Board_DIO25                 IOID_25
-#define Board_DIO28                 IOID_28
-#define Board_DIO30                 IOID_30
+#define Board_MOTOR                 PIN_UNASSIGNED
 
+#define LoRa_nRST                   IOID_25
+#define LoRa_DIO0                   IOID_26
+#define LoRa_DIO1                   IOID_27
+#define LoRa_SW_POWER               IOID_28
+#define LoRa_SW_CTRL                IOID_29
+#define LoRa_TXRX                   IOID_30
 
 #elif BEACON_BASE                   //ÐÅ±ê»ù´¡
 /* I2C */

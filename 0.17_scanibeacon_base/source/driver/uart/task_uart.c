@@ -89,7 +89,7 @@ void TaskUART_taskInit(void)
 {
   UART_init();                                      //初始化模块的串口功能
   UART_Params_init(&UARTparams);                    //初始化串口参数
-  UARTparams.baudRate = 115200;                     //串口波特率115200
+  UARTparams.baudRate = 9600;                     //串口波特率115200
   UARTparams.dataLength = UART_LEN_8;               //串口数据位8
   UARTparams.stopBits = UART_STOP_ONE;              //串口停止位1
   UARTparams.readDataMode = UART_DATA_BINARY;       //串口接收数据不做处理

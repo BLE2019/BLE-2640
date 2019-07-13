@@ -99,6 +99,9 @@
 #include "hw_spi.h"
 #include "osal_snv.h"
 #include "oled.h"
+#include "Network.h"
+#include "Comm2Trm.h"
+
 //#include "C:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\5.11_advance_scanibeacon\source\driver\pwm\hw_pwm.h"
 /*********************************************************************
  * MACROS
@@ -534,7 +537,7 @@ void sleep_mode_enter(void)
 }
 void buzzer_change(uint8_t state)
 {
-  HwGPIOSet(Board_MOTOR,state);
+ HwGPIOSet(Board_MOTOR,state);
   if(state==0)HwPWMStop(PWM_Buzzer);
   else HwPWMStart(PWM_Buzzer);
 
@@ -852,17 +855,14 @@ static void SimpleBLECentral_init(void)
                       ACCELEROMETER_DELAY, ACCELEROMETER_DELAY, true,ACCELEROMETER_EVT);
   //外设状态切换定时器，用来切换外设的状态
   Util_constructClock(&peripheral_change_Clock, Peripheral_change_Handler,
-                      PERIPHERAL_CHANGE_DELAY, 0, false, PERIPHERAL_CHANGE_EVT);
+                      PERIPHERAL_CHANGE_DELAY, 0, true, PERIPHERAL_CHANGE_EVT);
   //扫描检测定时器，5S内是否执行过扫描
   Util_constructClock(&scan_detect_Clock, Scan_detect_Handler,
-                      SCAN_DETECT_DELAY, 0, false, SCAN_DETECT_EVT);
+                      SCAN_DETECT_DELAY, 0, true, SCAN_DETECT_EVT);
   //按键保持时间检测，50MS检测一次
   Util_constructClock(&button_detect_Clock, Button_detect_Handler,
-                      BUTTON_DETECT_DELAY, 0, false, BUTTON_DETECT_EVT);
+                      BUTTON_DETECT_DELAY, 0, true, BUTTON_DETECT_EVT);
    Board_initKeys(SimpleBLECentral_keyChangeHandler);
-
-  //dispHandle = Display_open(Display_Type_LCD, NULL);
-
 
   // Initialize internal data
   for (i = 0; i < MAX_NUM_BLE_CONNS; i++)
@@ -923,7 +923,6 @@ static void SimpleBLECentral_init(void)
   // Register for GATT local events and ATT Responses pending for transmission
   GATT_RegisterForMsgs(selfEntity);
   HCI_LE_ReadMaxDataLenCmd();
-//  Display_print0(dispHandle, 0, 0, "Scan Beacon");
 //  
 //  TaskUARTdoWrite(NULL, NULL, "%s\r\n", "Scan Beacon");
   GY_UartTask_RegisterPacketReceivedCallback(TransUartReceiveDataCallback);
@@ -940,14 +939,13 @@ static void SimpleBLECentral_init(void)
   Watchdog_Init();
   //SPI通信初始化
   //HwSPIInit();
-  //LoraModuleInit();
+  LoRaMac_init_and_register();
   Msg_init();
-  
-  HwGPIOSet(Board_3V3_EN,0);
-  
+    
+#ifdef SCANBEACON_ADVANCE
   OLED_Init();
-  OLED_ShowChar(10,3,'5');
-  OLED_ShowChar(10,5,'t');
+#endif
+   
   HwGPIOSet(Board_GLED, 1);
   HwGPIOSet(Board_RLED, 1);
   HwGPIOSet(Board_YLED, 1);
@@ -1230,7 +1228,7 @@ static void SimpleBLECentral_taskFxn(UArg a0, UArg a1)
       // 如果扫描周期内没有扫描到BEACON设备，打印扫描超时
       if (scanRes == 0)
       {
-//        TaskUARTdoWrite(NULL, NULL, "+SCAN=TIMEOUT\r\n", NULL);
+        TaskUARTdoWrite(NULL, NULL, "+SCAN=TIMEOUT\r\n", NULL);
         //wakeup_event=SLEEP_STATE;
         //Display_clear(dispHandle);
       }
@@ -1322,7 +1320,7 @@ static void SimpleBLECentral_taskFxn(UArg a0, UArg a1)
       events &= ~ADC_DETECT_EVT;
       test_times++;
       batterypower=ADC_Read();
-      OLED_ShowChar(10,1,'6');
+      //OLED_ShowChar(10,1,'6');
       HwGPIOSet(Board_YLED, 0);
       if(test_times==100)test_times=0;
       if(databuf[0]!=0&&msg_receive==1)                       //配置状态
@@ -1821,8 +1819,8 @@ static void SimpleBLECentral_processRoleEvent(gapCentralRoleEvent_t *pEvent)
             Util_startClock(&startDiscClock);
           }
 
-          Display_print0(dispHandle, 2, 0, "Connected");
-          Display_print0(dispHandle, 3, 0, Util_convertBdAddr2Str(pEvent->linkCmpl.devAddr));
+//          Display_print0(dispHandle, 2, 0, "Connected");
+//          Display_print0(dispHandle, 3, 0, Util_convertBdAddr2Str(pEvent->linkCmpl.devAddr));
         }
         else
         {
@@ -1830,8 +1828,8 @@ static void SimpleBLECentral_processRoleEvent(gapCentralRoleEvent_t *pEvent)
           connHandle = GAP_CONNHANDLE_INIT;
           discState = BLE_DISC_STATE_IDLE;
 
-          Display_print0(dispHandle, 2, 0, "Connect Failed");
-          Display_print1(dispHandle, 3, 0, "Reason: %d", pEvent->gap.hdr.status);
+//          Display_print0(dispHandle, 2, 0, "Connect Failed");
+//          Display_print1(dispHandle, 3, 0, "Reason: %d", pEvent->gap.hdr.status);
         }
       }
       break;
@@ -1846,15 +1844,15 @@ static void SimpleBLECentral_processRoleEvent(gapCentralRoleEvent_t *pEvent)
         // Cancel RSSI reads
         SimpleBLECentral_CancelRssi(pEvent->linkTerminate.connectionHandle);
 
-        Display_print0(dispHandle, 2, 0, "Disconnected");
-        Display_print1(dispHandle, 3, 0, "Reason: %d", pEvent->linkTerminate.reason);
-        Display_clearLine(dispHandle, 4);
+//        Display_print0(dispHandle, 2, 0, "Disconnected");
+//        Display_print1(dispHandle, 3, 0, "Reason: %d", pEvent->linkTerminate.reason);
+//        Display_clearLine(dispHandle, 4);
       }
       break;
 
     case GAP_LINK_PARAM_UPDATE_EVENT:
       {
-        Display_print1(dispHandle, 2, 0, "Param Update: %d", pEvent->linkUpdate.status);
+//        Display_print1(dispHandle, 2, 0, "Param Update: %d", pEvent->linkUpdate.status);
       }
       break;
 

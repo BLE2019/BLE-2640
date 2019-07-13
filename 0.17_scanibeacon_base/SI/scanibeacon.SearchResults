@@ -1,0 +1,8 @@
+---- LoRaMacMlmeRequest Matches (3 in 1 files) ----
+LoRaMac.h (c:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.17_scanibeacon_base\source\driver\loramac\mac): * MCPS-Request     | \ref LoRaMacMlmeRequest
+LoRaMac.h (c:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.17_scanibeacon_base\source\driver\loramac\mac): * MLME-Request     | \ref LoRaMacMlmeRequest
+LoRaMac.h (c:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.17_scanibeacon_base\source\driver\loramac\mac): * if( LoRaMacMlmeRequest( &mlmeReq ) == LORAMAC_STATUS_OK )
+---- LoRaMacMlmeRequest Matches (3 in 1 files) ----
+LoRaMac.h (c:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.17_scanibeacon_base\source\driver\loramac\mac): * MCPS-Request     | \ref LoRaMacMlmeRequest
+LoRaMac.h (c:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.17_scanibeacon_base\source\driver\loramac\mac): * MLME-Request     | \ref LoRaMacMlmeRequest
+LoRaMac.h (c:\ti\simplelink\ble_sdk_2_02_01_18\examples\cc2650iot\0.17_scanibeacon_base\source\driver\loramac\mac): * if( LoRaMacMlmeRequest( &mlmeReq ) == LORAMAC_STATUS_OK )

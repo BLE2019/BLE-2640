@@ -1724,7 +1724,7 @@ __FAR__ const xdc_SizeT ti_sysbios_knl_Task_Module_State_terminatedQ__O = offset
  *  Define absolute path prefix for this executable's
  *  configuration generated files.
  */
-xdc__META(__ASM__, "@(#)__ASM__ = C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.15_scanibeacon_base/iar/config/configPkg/package/cfg/app_ble_prm3");
+xdc__META(__ASM__, "@(#)__ASM__ = C:/ti/simplelink/ble_sdk_2_02_01_18/examples/cc2650iot/0.17_scanibeacon_base/iar/config/configPkg/package/cfg/app_ble_prm3");
 
 /*
  *  ======== __ISA__ ========

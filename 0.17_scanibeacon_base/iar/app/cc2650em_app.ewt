@@ -3488,7 +3488,7 @@
       <name>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\util.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\util.h</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\Util.h</name>
     </file>
   </group>
   <group>
@@ -3631,22 +3631,124 @@
     <group>
       <name>LCD</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\common\display\DisplayEPD200.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\lcd\TFT128.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\common\display\DisplayTFT128.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\lcd\TFT128.h</name>
+      </file>
+    </group>
+    <group>
+      <name>LoRaMac</name>
+      <group>
+        <name>crypto</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\crypto\aes.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\crypto\aes.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\crypto\cmac.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\crypto\cmac.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\crypto\vssver2.scc</name>
+        </file>
+      </group>
+      <group>
+        <name>mac</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\LoRaMac-definitions.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\LoRaMac.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\LoRaMac.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\LoRaMacCrypto.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\LoRaMacCrypto.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\LoRaMacTest.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\mac\vssver2.scc</name>
+        </file>
+      </group>
+      <group>
+        <name>module</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\module\SchedTimer.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\module\SchedTimer.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\module\utilities.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\module\utilities.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\module\vssver2.scc</name>
+        </file>
+      </group>
+      <group>
+        <name>ports</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\ports\radio.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\ports\RFAdapter.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\ports\RFAdapter.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\ports\RtcAdapter.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\ports\RtcAdapter.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\ports\vssver2.scc</name>
+        </file>
+      </group>
+      <group>
+        <name>radio</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\sx1276Regs-Fsk.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\sx1276Regs-LoRa.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\sx1278_ports.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\sx1278_ports.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\sx1278_src.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\sx1278_src.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\radio\vssver2.scc</name>
+        </file>
+      </group>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\Comm2Trm.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\common\display\EPD200.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\common\display\lcd_epd_lib.a</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\common\display\lcd_tft_lib.a</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\common\display\TFT128.h</name>
+        <name>$PROJ_DIR$\..\..\source\driver\LoRaMac1\Network.c</name>
       </file>
     </group>
     <group>

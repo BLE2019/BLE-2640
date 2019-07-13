@@ -1,3 +1,5 @@
+#ifdef SCANBEACON_ADVANCE
+
 #include "oled.h"
 #include "board.h"
 #include "hw_gpio.h"
@@ -10,6 +12,7 @@ void OLED_Delay(uint32_t times)
     }
 }
 //÷√ŒªRESET
+
 static inline void OLED_SetRes()
 {
     HwGPIOSet(OLED_SPI_RESET, 1);
@@ -25,30 +28,31 @@ void OLED_WR_Byte(uint8_t data,uint8_t cmd)
     uint8_t i;
     HwGPIOSet(OLED_SPI_CS,0);
     NOP(6);
-    HwGPIOSet(OLED_SPI_CLK,0);
+    HwGPIOSet(Board_SPI0_CLK,0);
     NOP(6);
     if(cmd)
-      HwGPIOSet(OLED_SPI_MOSI,1);
+      HwGPIOSet(Board_SPI0_MOSI,1);
     else
-      HwGPIOSet(OLED_SPI_MOSI,0);
+      HwGPIOSet(Board_SPI0_MOSI,0);
     NOP(6);
-    HwGPIOSet(OLED_SPI_CLK,1);
+    HwGPIOSet(Board_SPI0_CLK,1);
     NOP(6);
     for(i=0;i<8;i++)
     {
-      HwGPIOSet(OLED_SPI_CLK,0);
+      HwGPIOSet(Board_SPI0_CLK,0);
       NOP(6);
       if(data&0x80)
-        HwGPIOSet(OLED_SPI_MOSI,1);
+        HwGPIOSet(Board_SPI0_MOSI,1);
       else
-        HwGPIOSet(OLED_SPI_MOSI,0);
+        HwGPIOSet(Board_SPI0_MOSI,0);
       NOP(6);
-      HwGPIOSet(OLED_SPI_CLK,1);
+      HwGPIOSet(Board_SPI0_CLK,1);
       data<<=1;
       NOP(6);
     }
     HwGPIOSet(OLED_SPI_CS,1);
 }
+
 //…Ë÷√◊¯±Í
 void OLED_Set_Pos(uint8_t x,uint8_t y)
 {
@@ -111,6 +115,7 @@ void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr)
 }
 void OLED_Init(void)
 {
+    HwGPIOSet(OLED_POWER_EN,0);
     /* Reset OLED and Waitting for Vcc stable */
     OLED_SetRes();
     OLED_Delay(100);
@@ -151,3 +156,4 @@ void OLED_Init(void)
     OLED_Clear();
     OLED_Set_Pos(0,0);
 }
+#endif
