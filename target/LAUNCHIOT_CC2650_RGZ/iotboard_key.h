@@ -9,7 +9,7 @@
  Target Device: CC2650, CC2640, CC1350
 
  ******************************************************************************
- 
+
  Copyright (c) 2014-2016, Texas Instruments Incorporated
  All rights reserved.
 
@@ -65,7 +65,7 @@ extern "C" {
  */
 #define KEY_BTN1              0x0001
 #define KEY_BTN2              0x0002
-   
+
 // Debounce timeout in milliseconds
 #define KEY_DEBOUNCE_TIMEOUT  100
 
@@ -92,9 +92,10 @@ typedef void (*keysPressedCB_t)(uint8_t keysPressed);
  * @return  none
  */
 void Board_initKeys(keysPressedCB_t appKeyCB);
-
+void Board_initLed();
+void Led_switch(uint8_t pin, bool state);
 /*********************************************************************
-*********************************************************************/  
+*********************************************************************/
 
 #ifdef __cplusplus
 }

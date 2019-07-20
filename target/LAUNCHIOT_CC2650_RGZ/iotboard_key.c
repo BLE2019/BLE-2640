@@ -8,7 +8,7 @@
  Target Device: CC2650, CC2640, CC1350
 
  ******************************************************************************
- 
+
  Copyright (c) 2014-2016, Texas Instruments Incorporated
  All rights reserved.
 
@@ -90,9 +90,26 @@ PIN_Config keyPinsCfg[] =
 
     PIN_TERMINATE
 };
+PIN_Config ledPinsCfg[] =
+{
+    Board_RLED          | PIN_GPIO_OUTPUT_DIS  | PIN_GPIO_OUTPUT_EN | PIN_OPENDRAIN,
+    Board_GLED          | PIN_GPIO_OUTPUT_DIS  | PIN_GPIO_OUTPUT_EN | PIN_OPENDRAIN,
 
-PIN_State  keyPins;
-PIN_Handle hKeyPins;
+    PIN_TERMINATE
+};
+
+PIN_State  keyPins, ledPins;
+PIN_Handle hKeyPins, hLedPins;
+
+void Board_initLed()
+{
+  hLedPins = PIN_open(&ledPins, ledPinsCfg);
+}
+
+void Led_switch(uint8_t pin, bool state)
+{
+  PIN_setOutputValue(hLedPins, pin, state);
+}
 
 /*********************************************************************
  * PUBLIC FUNCTIONS
@@ -107,7 +124,7 @@ PIN_Handle hKeyPins;
  * @return  none
  */
 void Board_initKeys(keysPressedCB_t appKeyCB)
-{  
+{
   // Initialize KEY pins. Enable int after callback registered
   hKeyPins = PIN_open(&keyPins, keyPinsCfg);
   PIN_registerIntCb(hKeyPins, Board_keyCallback);
@@ -121,7 +138,7 @@ void Board_initKeys(keysPressedCB_t appKeyCB)
   PIN_setConfig(hKeyPins, PINCC26XX_BM_WAKEUP, Board_BTN1 | PINCC26XX_WAKEUP_NEGEDGE);
   PIN_setConfig(hKeyPins, PINCC26XX_BM_WAKEUP, Board_BTN2 | PINCC26XX_WAKEUP_NEGEDGE);
 #endif //POWER_SAVING
-  
+
   // Setup keycallback for keys
   Util_constructClock(&keyChangeClock, Board_keyChangeHandler,
                       KEY_DEBOUNCE_TIMEOUT, 0, false, 0);

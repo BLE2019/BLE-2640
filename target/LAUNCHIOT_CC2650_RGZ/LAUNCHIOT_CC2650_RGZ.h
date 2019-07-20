@@ -67,259 +67,58 @@ extern const PIN_Config BoardGpioInitTable[];
  *      <board signal alias>        <pin mapping>
  */
 
-
+/* Discrete outputs */
+#define Board_RLED                  IOID_20
+#define Board_GLED                  IOID_19
 #define Board_LED_ON                1
 #define Board_LED_OFF               0
 
+/* Motor outputs */
+#define Board_MOTOR                 IOID_18
 
-
-#ifdef  SCANBEACON_ADVANCE             //胸卡增强
-/* Discrete outputs */
-#define Board_RLED                      IOID_20
-#define Board_GLED                      IOID_19
-#define Board_YLED                      IOID_18
 /* Discrete inputs */
-#define Board_BTN1                     IOID_21
-#define Board_BTN2                     IOID_22
+#define Board_BTN1                  IOID_21
+#define Board_BTN2                  IOID_22
+
 /* UART Board */
-#define Board_UART_RX               IOID_27
-#define Board_UART_TX               IOID_26
+#define Board_UART_RX               IOID_2
+#define Board_UART_TX               IOID_3
+
 /* SPI Board */
-#define Board_SPI0_MISO                 IOID_8
-#define Board_SPI0_MOSI                 IOID_7
-#define Board_SPI0_CLK                  IOID_6
-#define Board_SPI0_CSN                  PIN_UNASSIGNED
-#define LoRa_SPI0_CS                    IOID_23
-/* I2C */
-#define Board_I2C0_SCL0             IOID_0
-#define Board_I2C0_SDA0             IOID_1
-/* PWM outputs */
-#define Board_PWMBuzzer             IOID_15
-#define Board_PWMRED                PIN_UNASSIGNED
-#define Board_PWMGREEN              PIN_UNASSIGNED
-#define Board_PWMBLUE               PIN_UNASSIGNED
-/* ADC outputs */
-#define Board_DIO30_ADC             IOID_5
-/* LCD Control pin */
-#define OLED_SPI_RESET               IOID_13   
-#define OLED_SPI_CS                  IOID_12
-#define OLED_POWER_EN                IOID_11
-/* other not used pin  */
-#define Board_DIO2                   IOID_2
-#define Board_DIO3                   IOID_3
-#define Board_DIO4                   IOID_4
-#define Board_DIO9                   IOID_9
-#define Board_DIO10                 IOID_10
-#define Board_DIO15                 IOID_14
-#define Board_DIO24                 IOID_24
-#define Board_DIO25                 IOID_25
-#define Board_DIO28                 IOID_28
-#define Board_DIO29                 IOID_29
-#define Board_DIO30                 IOID_30
-#define Board_MOTOR                 PIN_UNASSIGNED
-
-#elif SCANBEACON_BASE               //胸卡基础
-/* Discrete outputs */
-#define Board_RLED                      IOID_20
-#define Board_GLED                      IOID_19
-#define Board_YLED                      IOID_18
-/* Discrete inputs */
-#define Board_BTN1                      IOID_21
-#define Board_BTN2                      IOID_22
-/* UART Board */
-#define Board_UART_RX                   PIN_UNASSIGNED
-#define Board_UART_TX                   PIN_UNASSIGNED
-/* SPI Board */
-#define Board_SPI0_MISO                 IOID_8
-#define Board_SPI0_MOSI                 IOID_7
-#define Board_SPI0_CLK                  IOID_6
-#define Board_SPI0_CSN                  PIN_UNASSIGNED
-#define LoRa_SPI0_CS                    IOID_23
-/* I2C */
-#define Board_I2C0_SCL0                 IOID_0
-#define Board_I2C0_SDA0                  IOID_1
-/* PWM outputs */
-#define Board_PWMBuzzer             IOID_15
-#define Board_PWMRED                PIN_UNASSIGNED
-#define Board_PWMGREEN              PIN_UNASSIGNED
-#define Board_PWMBLUE               PIN_UNASSIGNED
-/* ADC outputs */
-#define Board_DIO30_ADC             IOID_5
-/* LCD Control pin */
-#define OLED_SPI_RESET               IOID_13   
-#define OLED_SPI_CS                  IOID_12
-#define OLED_POWER_EN                IOID_11
-/* other not used pin  */
-
-#define Board_DIO2                   IOID_2
-#define Board_DIO3                   IOID_3
-#define Board_DIO4                   IOID_4
-#define Board_DIO9                   IOID_9
-#define Board_DIO10                 IOID_10
-#define Board_DIO15                 IOID_14
-#define Board_DIO18                 IOID_18
-#define Board_DIO24                 IOID_24
-#define Board_MOTOR                 PIN_UNASSIGNED
-
+#define Board_SPI0_MISO             IOID_8
+#define Board_SPI0_MOSI             IOID_7
+#define Board_SPI0_CLK              IOID_6
+#define Board_SPI0_CSN              PIN_UNASSIGNED
+#define Board_SPI_FLASH_CSN         IOID_23
+#define LoRa_CLK_POWEREN            IOID_24
 #define LoRa_nRST                   IOID_25
-#define LoRa_DIO0                   IOID_26
-#define LoRa_DIO1                   IOID_27
 #define LoRa_SW_POWER               IOID_28
 #define LoRa_SW_CTRL                IOID_29
-#define LoRa_TXRX                   IOID_30
+#define OLED_POWER_EN               IOID_11
+/* I2C */
+#define Board_I2C0_SCL0             IOID_4
+#define Board_I2C0_SDA0             IOID_5
 
-#elif BEACON_BASE                   //信标基础
-/* I2C */
-#define Board_I2C0_SCL0              IOID_0
-#define Board_I2C0_SDA0              IOID_1
-/* ACC */
-#define ACC_INT1                     IOID_2
-/* SENSOR_POWER */
-#define SENSOR_POWER                 IOID_3
-/* ADC outputs */
-#define Board_DIO30_ADC              IOID_5
-/* RTC */
-#define RTC_SCLK                     IOID_6
-#define RTC_DIO                      IOID_7
-#define RTC_nRST                     IOID_8
-/* other not used pin  */
-#define Board_DIO4                   IOID_4
-#define Board_DIO9                   IOID_9
-#define Board_DIO10                  IOID_10
-#define Board_DIO11                  IOID_11
-#define Board_DIO12                  IOID_12
-#define Board_DIO13                  IOID_13
-#define Board_DIO14                  IOID_14
-#define Board_DIO15                  IOID_15
-#define Board_DIO18                  IOID_18
-#define Board_DIO19                  IOID_19
-#define Board_DIO20                  IOID_20
-#define Board_DIO21                  IOID_21
-#define Board_DIO22                  IOID_22
-#define Board_DIO23                  IOID_22
-#define Board_DIO24                  IOID_24
-#define Board_DIO25                  IOID_25
-#define Board_DIO26                  IOID_26
-#define Board_DIO27                  IOID_27
-#define Board_DIO28                  IOID_28
-#define Board_DIO29                  IOID_29
-#define Board_DIO30                  IOID_30
-#define Board_RLED                   IOID_10
-#define Board_GLED                   IOID_11
-#define Board_MOTOR                  PIN_UNASSIGNED
-#define Board_BTN1                   PIN_UNASSIGNED
-#define Board_BTN2                   PIN_UNASSIGNED
-#define Board_UART_RX                IOID_27
-#define Board_UART_TX                IOID_26
-#define Board_SPI0_MISO              PIN_UNASSIGNED
-#define Board_SPI0_MOSI              PIN_UNASSIGNED
-#define Board_SPI0_CLK               PIN_UNASSIGNED
-#define Board_SPI0_CSN               PIN_UNASSIGNED
-#define Board_SPI_FLASH_CSN          PIN_UNASSIGNED
-#define Board_PWMBuzzer              PIN_UNASSIGNED
-#define Board_PWMRED                 PIN_UNASSIGNED
-#define Board_PWMGREEN               PIN_UNASSIGNED
-#define Board_PWMBLUE                PIN_UNASSIGNED
-#define Board_LCD_MODE               PIN_UNASSIGNED   
-#define Board_LCD_CSN                PIN_UNASSIGNED
-#define Board_3V3_EN                 PIN_UNASSIGNED
-
-#elif BEACON_ADVANCE              //信标增强
-/* I2C */
-#define Board_I2C0_SCL0            IOID_0
-#define Board_I2C0_SDA0           IOID_1
-/* ACC */
-#define ACC_INT1                        IOID_2
-/* SENSOR_POWER */
-#define SENSOR_POWER             IOID_3
-/* OXYGEN */
-#define OXYGEN_nINT                 IOID_4
-#define OXYGEN_POWER_EN       IOID_11
-/* ADC outputs */
-#define Board_DIO30_ADC          IOID_5
-/* RTC */
-#define RTC_SCLK                        IOID_6
-#define RTC_DIO                          IOID_7
-#define RTC_nRST                        IOID_8
-#define BAROMETER_POWER                 IOID_12
-/* other not used pin  */
-#define Board_DIO9                    IOID_9
-#define Board_DIO13                  IOID_13
-#define Board_DIO14                  IOID_14
-#define Board_DIO15                  IOID_15
-#define Board_DIO18                  IOID_18
-#define Board_DIO19                  IOID_19
-#define Board_DIO20                  IOID_20
-#define Board_DIO21                  IOID_21
-#define Board_DIO22                  IOID_22
-#define Board_DIO23                  IOID_22
-#define Board_DIO24                  IOID_24
-#define Board_DIO25                  IOID_25
-#define Board_DIO26                  IOID_26
-#define Board_DIO27                  IOID_27
-#define Board_DIO28                  IOID_28
-#define Board_DIO29                  IOID_29
-#define Board_DIO30                  IOID_30
-#define Board_BTN1                   PIN_UNASSIGNED
-#define Board_BTN2                   PIN_UNASSIGNED
-#define Board_UART_TX                PIN_UNASSIGNED
-#define Board_UART_RX                PIN_UNASSIGNED
-#define Board_SPI0_MOSI              PIN_UNASSIGNED
-#define Board_SPI0_MISO              PIN_UNASSIGNED
-#define Board_SPI0_CLK               PIN_UNASSIGNED
-#define Board_SPI0_CSN               PIN_UNASSIGNED
-#define Board_LCD_MODE               PIN_UNASSIGNED
-#define Board_LCD_CSN                PIN_UNASSIGNED
-#define Board_3V3_EN                 PIN_UNASSIGNED
-#define Board_PWMRED                 PIN_UNASSIGNED
-#define Board_PWMGREEN               PIN_UNASSIGNED
-#define Board_PWMBLUE                PIN_UNASSIGNED
-#define Board_PWMBuzzer              PIN_UNASSIGNED
-#else                               //原板子
-/* Discrete outputs */
-#define Board_RLED                   IOID_6
-#define Board_GLED                   IOID_7
-#define Board_YLED                   IOID_6
-/* Motor outputs */
-#define Board_MOTOR                  IOID_18
-/* Discrete inputs */
-#define Board_BTN1                   IOID_13
-#define Board_BTN2                   IOID_14
-/* UART Board */
-#define Board_UART_RX                IOID_2
-#define Board_UART_TX                IOID_3
-/* SPI Board */
-#define Board_SPI0_MISO              IOID_8
-#define Board_SPI0_MOSI              IOID_9
-#define Board_SPI0_CLK               IOID_10
-#define Board_SPI0_CSN               PIN_UNASSIGNED
-#define Board_SPI_FLASH_CSN          IOID_12
-/* I2C */
-#define Board_I2C0_SCL0              IOID_0
-#define Board_I2C0_SDA0              IOID_1
 /* PWM outputs */
-#define Board_PWMBuzzer              IOID_19
-#define Board_PWMRED                 IOID_20
-#define Board_PWMGREEN               IOID_21
-#define Board_PWMBLUE                IOID_22
+#define Board_PWMBuzzer             IOID_19
+#define Board_PWMRED                IOID_20
+#define Board_PWMGREEN              IOID_21
+#define Board_PWMBLUE               IOID_22
+
 /* ADC outputs */
-#define Board_DIO30_ADC              IOID_30
+#define Board_DIO30_ADC             IOID_30
+
+
 /* LCD Control pin */
-#define Board_LCD_MODE               IOID_1   
-#define Board_LCD_CSN                IOID_11
-#define Board_3V3_EN                 IOID_0
-/* other not used pin  */
-
-#endif
-
-
-
+#define Board_LCD_MODE              IOID_1
+#define Board_LCD_CSN               IOID_11
+#define Board_3V3_EN                IOID_0
 /** ============================================================================
  *  Instance identifiers
  *  ==========================================================================*/
 /* Generic I2C instance identifiers */
 #define Board_I2C                   CC2650_LAUNCHXL_I2C0
-   
+
 /* Generic SPI instance identifiers */
 #define Board_SPI                   CC2650_LAUNCHXL_SPI0
 
