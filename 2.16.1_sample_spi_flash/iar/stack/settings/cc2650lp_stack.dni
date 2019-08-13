@@ -1,5 +1,5 @@
 [XdsDriver]
-xds110serialNo=GY005746
+xds110serialNo=GY005695
 xds110foundProbes=
 CStepIntDis=_ 0
 LeaveTargetRunning=_ 0
@@ -18,6 +18,16 @@ ByteLimit=50
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
+[DebugChecksum]
+Checksum=104055573
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[CallStackLog]
+Enabled=0
+[CallStackStripe]
+ShowTiming=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -28,7 +38,8 @@ LogFile=_ ""
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Count=0
+Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\..\source\app\simple_peripheral.c}.593.1" 0 0 1 "" 0 "" 0
+Count=1
 [Aliases]
 Count=0
 SuppressDialog=0

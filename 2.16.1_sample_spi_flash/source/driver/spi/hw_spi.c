@@ -4,6 +4,7 @@
 
 #include "hw_spi.h"
 #include "hw_uart.h"
+#include "sx1278_src.h"
 /*********************************************************************
  * LOCAL PARAMETER
  */
@@ -42,6 +43,7 @@ void HwSPIInit(void)
     SPIparams.transferMode = SPI_MODE_BLOCKING;      //阻塞
 //    SPIparams.transferMode = SPI_MODE_CALLBACK;
     SPIparams.transferTimeout = SPI_WAIT_FOREVER;
+    SPIparams.transferTimeout = 50000;//0727!!!!!!!!!!!!!!!!!!!
 }
 
 /*********************************************************************
@@ -57,6 +59,41 @@ void HwSPIInit(void)
  * @return  None.
  */
  static uint8_t trans_cnt = 0;
+void delay_spi(uint32_t cnt)  //0725!!!!!!!!!!!!!!!
+{
+	while(cnt >0)
+	{
+		cnt--;
+	}
+}
+//0731, 对FIFO，在此逐字节发，或在系统函数中逐字节发；中间可加时延，或判断状态。（发完之后再使能1278向上发）
+//或分析是否有和其他资源冲突的地方
+//或注释掉信号量一句
+void HwSPIFifoTrans(uint8_t csnPin, uint8_t *txbuf, uint8_t *rxbuf, uint16_t len)
+{
+  if(len == 1)
+  {
+    HwSPITrans(csnPin, txbuf, rxbuf, len);
+  }
+  else
+  {
+    uint8_t tx_tmp[1] = {0};
+    uint8_t rx_tmp[1] = {0};
+    
+    for(uint16_t i = 0; i < len; i++)
+    {
+        tx_tmp[0] = txbuf[i];
+        HwSPITrans(csnPin, tx_tmp, rx_tmp, 1);
+        
+        //just delay
+        for(uint16_t m = 0; m < 1000; )
+        {
+          m++;
+        }
+    }
+  }
+  
+}
 void HwSPITrans(uint8_t csnPin, uint8_t *txbuf, uint8_t *rxbuf, uint16_t len)
 {
     SPI_Transaction spiTransaction;
@@ -96,13 +133,17 @@ void HwSPITrans(uint8_t csnPin, uint8_t *txbuf, uint8_t *rxbuf, uint16_t len)
         csnFlag = SPI_control(SPIHandle, SPICC26XXDMA_CMD_SET_CSN_PIN, &csnPin);  //选择CSN片选引脚
 #endif
     }
- 
+    
+//   delay_spi(50000);  //0725!!!!!!!!!!!
     if (csnFlag == SPI_STATUS_SUCCESS) 
     {
         uint8_t t1 = txbuf[0];
         uint8_t t2 = txbuf[1];
         SPI_transfer(SPIHandle, &spiTransaction);
     }
+
+   
+
     
     //0717...
     //DelayMs(1);

@@ -1156,7 +1156,7 @@ static void PrepareRxDoneAbort( void )
 
 static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr )
 {
-	#if 0 //0712
+	#if 1 //0712---->0725
     LoRaMacHeader_t macHdr;
     LoRaMacFrameCtrl_t fCtrl;
     bool skipIndication = false;
@@ -1197,10 +1197,10 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
     McpsIndication.McpsIndication = MCPS_UNCONFIRMED;
 
     Radio.Sleep( );
-    TimerStop( &RxWindowTimer2 );
+  //  TimerStop( &RxWindowTimer2 );  0725!!!!!!!!!!!!!!!!!!!!
 
-    extern void chip_LED2Off(void);
-    chip_LED2Off();
+ //   extern void chip_LED2Off(void);
+ //   chip_LED2Off();
 
 /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 #if 0  //0709!!!!!!!!!!!!!!!
@@ -1224,7 +1224,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
             if( IsLoRaMacNetworkJoined == true )
             {
                 McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
-                PrepareRxDoneAbort( );
+ //               PrepareRxDoneAbort( );   0725!!!!!!!!!!!!!!!!!!!!!!!
                 return;
             }
             LoRaMacJoinDecrypt( payload + 1, size - 1, LoRaMacAppKey, LoRaMacRxPayload + 1 );
@@ -1261,8 +1261,8 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                 {
                     LoRaMacParams.ReceiveDelay1 = 1;
                 }
-                LoRaMacParams.ReceiveDelay1 *= 1e3;
-                LoRaMacParams.ReceiveDelay2 = LoRaMacParams.ReceiveDelay1 + 1e3;
+                LoRaMacParams.ReceiveDelay1 *= 1000;
+                LoRaMacParams.ReceiveDelay2 = LoRaMacParams.ReceiveDelay1 + 1000;
 
 #if !( defined( USE_BAND_915 ) || defined( USE_BAND_915_HYBRID ) )
                 //CFList
@@ -1323,7 +1323,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                     {
                         // We are not the destination of this frame.
                         McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ADDRESS_FAIL;
-                        PrepareRxDoneAbort( );
+ //                       PrepareRxDoneAbort( );  0725!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         return;
                     }
                 }
@@ -1376,7 +1376,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                 {
                     McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_DOWNLINK_TOO_MANY_FRAMES_LOSS;
                     McpsIndication.DownLinkCounter = downLinkCounter;
-                    PrepareRxDoneAbort( );
+//                    PrepareRxDoneAbort( );  0725!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     return;
                 }
 
@@ -1404,7 +1404,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                         {
                             McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_DOWNLINK_REPEATED;
                             McpsIndication.DownLinkCounter = downLinkCounter;
-                            PrepareRxDoneAbort( );
+    //                        PrepareRxDoneAbort( );
                             return;
                         }
                         curMulticastParams->DownLinkCounter = downLinkCounter;
@@ -1437,7 +1437,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                             {
                                 McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_DOWNLINK_REPEATED;
                                 McpsIndication.DownLinkCounter = downLinkCounter;
-                                PrepareRxDoneAbort( );
+    //                            PrepareRxDoneAbort( );  0725!!!!!!!!!!!!!!!!!
                                 return;
                             }
                         }
@@ -2604,6 +2604,7 @@ static void ProcessMacCommands( uint8_t *payload, uint8_t macIndex, uint8_t comm
 #endif
 #endif
 /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	#endif //0725!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     while( macIndex < commandsSize )
     {
@@ -2947,8 +2948,8 @@ static void ProcessMacCommands( uint8_t *payload, uint8_t macIndex, uint8_t comm
                     {
                         delay++;
                     }
-                    LoRaMacParams.ReceiveDelay1 = delay * 1e3;
-                    LoRaMacParams.ReceiveDelay2 = LoRaMacParams.ReceiveDelay1 + 1e3;
+                    LoRaMacParams.ReceiveDelay1 = delay * 1000;
+                    LoRaMacParams.ReceiveDelay2 = LoRaMacParams.ReceiveDelay1 + 1000;
                     AddMacCommand( MOTE_MAC_RX_TIMING_SETUP_ANS, 0, 0 );
                 }
                 break;
@@ -2957,7 +2958,6 @@ static void ProcessMacCommands( uint8_t *payload, uint8_t macIndex, uint8_t comm
                 return;
         }
     }
-	#endif 
 }
 
 LoRaMacStatus_t Send( LoRaMacHeader_t *macHdr, uint8_t fPort, void *fBuffer, uint16_t fBufferSize )

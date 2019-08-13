@@ -17,6 +17,10 @@
 #define __NETWORK_H__
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <_hal_types.h>
 #include "SystSettings.h"
 
 /* Exported variables ------------------------------------------------------- */
@@ -37,7 +41,9 @@ void network_Uplink(void *p_vUpData);
 //bool network_Checklink(void); //0709
 
 void LoRaMac_init_and_register(void);
+void LoRaDataSEND(void);
 void Trace_LoRaMac(char*);
+bool network_Checklink(void);
 #endif
 
 /*--------------------------------------------------------------------------

@@ -136,7 +136,8 @@ void SX1278Write(uint8_t addr, uint8_t data);
 void SX1278Dio0IrqHandler(void);
 void SX1278Dio1IrqHandler(void);
 
-
+void SX1278SetOpMode(uint8_t opMode );
+void DelayMs(uint16_t n);
 #endif
 
 /*--------------------------------------------------------------------------

@@ -99,6 +99,7 @@
 #include "sx1278_ports.h"
 #include "sx1276Regs-LoRa.h"
 #include "sx1276Regs-Fsk.h"
+#include <driverlib/aon_batmon.h>
 uint8_t rxbuf[1] = {0};
 uint8_t txbuf[1] = {0x72};
 /*********************************************************************
@@ -157,7 +158,7 @@ uint8_t txbuf[1] = {0x72};
 
 
 #ifndef SBP_TASK_STACK_SIZE
-#define SBP_TASK_STACK_SIZE                   644
+#define SBP_TASK_STACK_SIZE                   1028 //644, from 644 to 1028, 0810
 #endif
 
 // Internal Events for RTOS application
@@ -398,6 +399,7 @@ void SimpleBLEPeripheral_createTask(void)
  *
  * @return  None.
  */
+extern void comm2trm_Init(void);
 static void SimpleBLEPeripheral_init(void)
 {
   // ******************************************************************
@@ -573,13 +575,23 @@ static void SimpleBLEPeripheral_init(void)
   HwGPIOInit();
   HwGPIOSet(LoRa_CLK_POWEREN,1);
 
-  //SX1278Write(0x06,0x08);
+  //0730!!!!!!!!!!!!!!!!!!!11
+//  AONBatMonEnable();
+//  uint32_t batval; 
+//   float battery_float;
+//   float tmp[2] = {0};
+//   batval = AONBatMonBatteryVoltageGet();
+//   tmp[0] = (batval >> 8) & 0xff;
+//   tmp[1] = batval & 0xff;
+//   battery_float = (tmp[0] + tmp[1] / 256);
+
+   //SX1278Write(0x06,0x08);
   //rxbuf[0] = SX1278Read(0x06);
   //SX1278WriteBuffer(0x06,txbuf,1);
   //SX1278ReadBuffer(0x06,rxbuf,1);
   comm2trm_Init();
   LoRaMac_init_and_register();
-
+  LoRaDataSEND();
 #if defined FEATURE_OAD
 #if defined (HAL_IMAGE_A)
   Display_print0(dispHandle, 0, 0, "BLE Peripheral A");

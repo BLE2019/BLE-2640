@@ -355,6 +355,37 @@ PROCESS_THREAD(NetworkProcess, ev, data)
 }
 
 #endif
+//*****************LoRaData Send Add In 0812*****
+#if 1
+void LoRaDataSEND(void)
+{
+      UPLINK_DATA_BUF *p_stUplinkDataBuf;
+      McpsReq_t    l_stMcpsReq;
+      uint8_t Data[5] = {0x30,0x31,0x32,0x33,0x34};
+      p_stUplinkDataBuf->byPort ==200;
+      memcpy(&p_stUplinkDataBuf->a_byDataBuf[0],Data,5);
+      p_stUplinkDataBuf->byDataSize ==5;
+      p_stUplinkDataBuf->byType == 0;
+      if(p_stUplinkDataBuf->byType == 0)
+      {
+          l_stMcpsReq.Type = MCPS_UNCONFIRMED;
+          l_stMcpsReq.Req.Unconfirmed.fPort = p_stUplinkDataBuf->byPort;
+          l_stMcpsReq.Req.Unconfirmed.Datarate = s_stNetSettingsC2T.byDataRate;
+          l_stMcpsReq.Req.Unconfirmed.fBuffer = (void *)&p_stUplinkDataBuf->a_byDataBuf[0];
+          l_stMcpsReq.Req.Unconfirmed.fBufferSize = (uint16_t)p_stUplinkDataBuf->byDataSize;
+      }
+      else
+      {
+          l_stMcpsReq.Type = MCPS_CONFIRMED;
+          l_stMcpsReq.Req.Confirmed.fPort = p_stUplinkDataBuf->byPort;
+          l_stMcpsReq.Req.Confirmed.Datarate = s_stNetSettingsC2T.byDataRate;
+          l_stMcpsReq.Req.Confirmed.NbTrials = 3;
+          l_stMcpsReq.Req.Confirmed.fBuffer = (void *)&p_stUplinkDataBuf->a_byDataBuf[0];
+          l_stMcpsReq.Req.Confirmed.fBufferSize = (uint16_t)p_stUplinkDataBuf->byDataSize;
+      }
+      LoRaMacMcpsRequest(&l_stMcpsReq); 
+}
+#endif
 //***å*å*å*å*å*å**å*å*å*å*å**å*å*å*å*å*å**add in 0706-----------
 
 /*---------------------------------------------------------------------------*/
@@ -362,9 +393,44 @@ void Trace_LoRaMac(char * str)
 {
 	//print str
 }
+
+uint8_t reg_value[100] = {0};
+uint8_t reg_value_1[100] = {0};
+uint8_t t1[100] = {0};
 void test_register()
 {    
-    uint8_t tmp[5] = {0x00,0x77,0x66,0x55,0x44};    
+  uint8_t ind;
+    for(ind = 1; ind < 64;)
+    {
+      reg_value[ind] = SX1278Read(ind);
+      ind++;
+    }
+    
+    for(ind = 1; ind < 64;)
+    {
+      SX1278Write(ind, reg_value[ind]+1);
+      ind++;
+      DelayMs(1);
+    }
+    
+    for(ind = 1; ind < 64;)
+    {
+      reg_value_1[ind] = SX1278Read(ind);
+      ind++;
+    }
+
+    for(ind = 1; ind < 64; ind++)
+    {
+        t1[ind] = reg_value_1[ind] - reg_value[ind];
+    }
+    
+    for(ind = 1; ind < 64;)
+    {
+      SX1278Write(ind, reg_value[ind]);
+      ind++;
+    }
+    
+    uint8_t tmp[30] = {0x55};    
     /*ÉèÖÃË¯ÃßÄ£Ê½£¬¶Ô0x01¼Ä´æÆ÷Ð´0x08*/
       SX1278SetOpMode(RF_OPMODE_SLEEP);
       DelayMs(100);
@@ -376,7 +442,24 @@ void test_register()
     SX1278SetOpMode(RF_OPMODE_STANDBY);
     //fifo¼Ä´æÆ÷±ØÐëÔÚ´ý»úÄ£Ê½ÏÂ£¬²Å¿É½øÐÐ·ÃÎÊ
     
-    SX1278WriteFifo(tmp, 1);
+    for(ind = 0; ind < 30; ind++)
+    {
+      SX1278WriteFifo(&(tmp[ind]), 1);
+    }
+    uint8_t read_val;
+    for(ind = 0; ind < 30; ind++)
+    {
+       SX1278ReadFifo(&read_val, 1);
+       t1[ind] = read_val;
+    }
+    
+    SX1278WriteFifo(reg_value, 10);
+    SX1278WriteFifo(reg_value, 20);
+    SX1278WriteFifo(reg_value, 30);
+
+    uint8_t read_buf[30];
+    SX1278ReadFifo(read_buf, 30);
+    ind = ind + 1;
 
 }
 void LoRaMac_init_and_register(void)
@@ -389,7 +472,7 @@ void LoRaMac_init_and_register(void)
     SX1278InitPins();
       //0716
     //test_register();
-
+    uint8_t Activate = 0;
 #if 0
     PROCESS_BEGIN();
 
@@ -415,8 +498,8 @@ void LoRaMac_init_and_register(void)
     LoRaMacMibSetRequestConfirm(&l_tMibReq);
 
 #if JOIN_OTAA
-    MlmeReq_t    l_tMlmeReq;
-   uint8_t deveui[] = {0x39, 0x33, 0x37, 0x47, 0x12, 0x3a, 0x00, 0x5f};
+   MlmeReq_t    l_tMlmeReq;
+   uint8_t deveui[] = {0x39, 0x33, 0x37, 0x47, 0x12, 0x3a, 0x00, 0x89};
    uint8_t Appkey[16] = {0x00,0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,
                          0x99,0xaa,0xbb,0xcc,0xdd,0xee,0xff};
    memcpy(s_stNetSettingsC2T.a_byAppKey,Appkey,16);
@@ -430,7 +513,9 @@ void LoRaMac_init_and_register(void)
         l_tMlmeReq.Req.Join.AppKey = s_stNetSettingsC2T.a_byAppKey;
         l_tMlmeReq.Req.Join.NbTrials = 3;
         LoRaMacMlmeRequest(&l_tMlmeReq);
-
+        Activate++;
+        if(Activate >=3)
+          break;
 //        PROCESS_YIELD_UNTIL(PROCESS_EVENT_POLL == ev); //0709
     }
 #else

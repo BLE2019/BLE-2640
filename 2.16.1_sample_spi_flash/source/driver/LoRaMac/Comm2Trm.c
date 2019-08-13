@@ -557,7 +557,7 @@ static int8_t ProcessUartFrame(void)
             CfgStartCh();
             break;
         default:
-            ASSERT(!"Bad type of comm frame.\r\n");			
+         //   ASSERT(!"Bad type of comm frame.\r\n");			
             break;    
     }
 
@@ -715,7 +715,7 @@ void comm2trm_RxUartData(uint8_t byData)
             }
             break;
         default:
-            ASSERT(!"Error: Bad status of comm2trm_RxUartData().\r\n");
+            //ASSERT(!"Error: Bad status of comm2trm_RxUartData().\r\n");
             break;
     }
 
@@ -801,7 +801,7 @@ void comm2trm_BeginRxData(void)
 /*---------------------------------------------------------------------------------------------*/
 void comm2trm_RxWakeData(void *p_vWakeData)
 {
-    ASSERT(p_vWakeData);
+ //   ASSERT(p_vWakeData);
 
 //    process_post(&Comm2TrmProcess, C2T_EVENT_RX_WAKE_DATA, p_vWakeData); //0706!!!!!!!!!!!!
 

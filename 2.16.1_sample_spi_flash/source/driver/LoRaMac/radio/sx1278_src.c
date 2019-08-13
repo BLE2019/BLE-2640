@@ -136,6 +136,8 @@ uint8_t SX1278Read(uint8_t addr)
 /*-------------------------------------------------------------------------*/
 void SX1278WriteFifo(const uint8_t *p_byBuf, uint8_t bySize)
 {
+    uint8_t tmp_src;
+    tmp_src = 1 + 2;
     SX1278WriteBuffer(0, (uint8_t *)p_byBuf, bySize);
 }
 
@@ -460,7 +462,7 @@ uint32_t SX1278Random(void)
   */
 void SX1278SetPAOutput(PA_OUTPUT_PIN_TypeDef ePAOutput)
 {
-	Trace_LoRaMac("SX1278SetPAOutput");
+	//Trace_LoRaMac("SX1278SetPAOutput");
     SX1278Write( REG_LR_PACONFIG,
                           (SX1278Read(REG_LR_PACONFIG) & RFLR_PACONFIG_PASELECT_MASK) | 
                           ePAOutput );
