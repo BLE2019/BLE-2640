@@ -1,0 +1,24 @@
+#include "GUA_RTC.h"
+
+void RTC_SetTime(uint32 timeNow)
+{
+    Seconds_set(timeNow);
+}
+
+uint32 RTC_GetTime(void)
+{
+    return Seconds_get();
+}
+
+void RTC_ShowTime(void)
+{
+    UInt32 t;
+    time_t t1;
+    struct tm *ltm;
+    char *curTime;
+
+    t = Seconds_get();
+t1 = time(NULL); ltm = localtime(&t1); curTime = asctime(ltm); System_printf("Time(GMT): %s\n", curTime);
+}
+
+
