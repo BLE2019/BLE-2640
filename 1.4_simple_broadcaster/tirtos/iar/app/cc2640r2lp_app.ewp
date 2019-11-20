@@ -225,8 +225,8 @@
                     <state>ICALL_MAX_NUM_ENTITIES=6</state>
                     <state>ICALL_MAX_NUM_TASKS=3</state>
                     <state>ICALL_STACK0_ADDR</state>
-                    <state>POWER_SAVING</state>
                     <state>RF_SINGLEMODE</state>
+                    <state>POWER_SAVING</state>
                     <state>STACK_LIBRARY</state>
                     <state>USE_ICALL</state>
                     <state>xdc_runtime_Assert_DISABLE_ALL</state>

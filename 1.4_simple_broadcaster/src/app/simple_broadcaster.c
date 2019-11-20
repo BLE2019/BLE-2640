@@ -53,7 +53,6 @@
 #include <ti/sysbios/knl/Clock.h>
 #include <ti/sysbios/knl/Event.h>
 #include <ti/sysbios/knl/Queue.h>
-#include <ti/display/Display.h>
 #include <driverlib/aon_batmon.h>
 #include <driverlib/aux_adc.h>
 #include <driverlib/aux_wuc.h>
@@ -85,7 +84,7 @@
 
 // What is the advertising interval when device is discoverable (units of 625us, 160=100ms)
 #define DEFAULT_ADVERTISING_INTERVAL          160       //Ä¬ÈÏ¹ã²¥¼ä¸ô10ms
-#define MIN_ADVERTISING_INTERVAL              1600
+#define ADVERTISING_INTERVAL                  20
 // Type of Display to open
 #if !defined(Display_DISABLE_ALL)
   #if defined(BOARD_DISPLAY_USE_LCD) && (BOARD_DISPLAY_USE_LCD!=0)
@@ -372,7 +371,7 @@ static void SimpleBLEBroadcaster_init(void)
 
   // Set advertising interval
   {
-    uint16_t advInt = DEFAULT_ADVERTISING_INTERVAL;
+    uint16_t advInt = ADVERTISING_INTERVAL * DEFAULT_ADVERTISING_INTERVAL;
 
     GAP_SetParamValue(TGAP_LIM_DISC_ADV_INT_MIN, advInt);
     GAP_SetParamValue(TGAP_LIM_DISC_ADV_INT_MAX, advInt);
