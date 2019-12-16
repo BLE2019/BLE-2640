@@ -12,12 +12,12 @@
       <file>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\rcosc\rcosc_calibration.c</file>
       <file>$PROJ_DIR$\..\..\..\target\LAUNCHIOT_CC2650_RGZ\iotboard_key.c</file>
       <file>$PROJ_DIR$\..\..\..\target\LAUNCHIOT_CC2650_RGZ\iotboard_key.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\Util.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\util.c</file>
       <file>$PROJ_DIR$\..\..\..\target\board.c</file>
       <file>$PROJ_DIR$\..\config\ccfg_app_ble.c</file>
       <file>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\rcosc\ccfg_app_ble_rcosc.c</file>
       <file>$PROJ_DIR$\..\..\source\app\main.c</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\Util.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\src\common\cc26xx\util.c</file>
     </outputs>
   </configuration>
   <configuration>

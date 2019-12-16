@@ -1439,7 +1439,7 @@ void wdtInitFxn()
 	wp.resetMode      = Watchdog_RESET_ON;
  
 	watchdog = Watchdog_open(Board_WATCHDOG0, &wp);
-	Watchdog_setReload(watchdog, 1500000); // 1sec (WDT runs always at 48MHz/32)
+	Watchdog_setReload(watchdog, 5*1500000); // 1sec (WDT runs always at 48MHz/32)
 }
 
 /*********************************************************************
