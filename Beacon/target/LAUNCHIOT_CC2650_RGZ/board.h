@@ -51,7 +51,7 @@ extern "C" {
 
 #define     Board_UART0             Board_UART
 #define     Board_AES0              Board_AES
-#define     Board_WATCHDOG0         CC2650_LAUNCHXL_WATCHDOG0
+#define     Board_WATCHDOG0         CC2650_WATCHDOG0
 
 #define     Board_ADC0              CC2650_LAUNCHXL_ADCVSS
 #define     Board_ADC1              CC2650_LAUNCHXL_ADCVDDS
@@ -79,5 +79,23 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+/*!
+*  @def    CC2650_WatchdogName
+*  @brief  Enum of Watchdogs on the CC2650 dev board
+*/
+typedef enum CC2650_WatchdogName {
+	CC2650_WATCHDOG0 = 0,
+	CC2650_WATCHDOGCOUNT
+} CC2650_WatchdogName;
+ 
+/*!
+*  @def    SENSORTAG_CC2650_WatchdogName
+*  @brief  Enum of Watchdogs on the SENSORTAG_CC2650 dev board
+*/
+typedef enum SENSORTAG_CC2650_WatchdogName {
+	SENSORTAG_CC2650_WATCHDOG0 = 0,
+	SENSORTAG_CC2650_WATCHDOGCOUNT
+} SENSORTAG_CC2650_WatchdogName;
 
 #endif /* __BOARD_H */
