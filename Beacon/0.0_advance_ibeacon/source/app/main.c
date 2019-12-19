@@ -74,7 +74,7 @@ bleUserCfg_t user0Cfg = BLE_USER_CFG;
 #endif // USE_DEFAULT_USER_CFG
 
 #include <ti/mw/display/Display.h>
-
+#include "boardWDT.h"
 #ifdef USE_FPGA
 #include <inc/hw_prcm.h>
 #endif // USE_FPGA
@@ -201,7 +201,7 @@ int main()
   GAPRole_createTask();
   
   SimpleBLEPeripheral_createTask();
-  
+  wdtInitFxn();
   /* enable interrupts and start SYS/BIOS */
   BIOS_start();
 

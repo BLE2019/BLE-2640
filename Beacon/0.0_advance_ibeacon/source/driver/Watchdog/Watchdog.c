@@ -54,24 +54,27 @@
  /*
 *  ============================= WatchDog Begin===========================
 */
-#include <ti/drivers/Watchdog.h>
-#include <ti/drivers/watchdog/WatchdogCC26XX.h>
- 
+#include <Watchdog.h>
+#include "WatchdogCC26XX.h"
+
 /* Watchdog objects */
 WatchdogCC26XX_Object watchdogCC26XXObjects[CC2650_WATCHDOGCOUNT];
  
 /* Watchdog configuration structure */
-const WatchdogCC26XX_HWAttrs watchdogCC26XXHWAttrs[] = {
-    /* SENSORTAG_CC2650_WATCHDOG0 with 1 sec period at default CPU clock freq */
+const WatchdogCC26XX_HWAttrs watchdogCC26XXHWAttrs[CC2650_WATCHDOGCOUNT] = {
     {
       .baseAddr = WDT_BASE, 
-      //.intNum = INT_WATCHDOG,
-    }
+      .intNum = INT_WDT_IRQ,
+      .reloadValue = 150
+    },
 };
  
-const Watchdog_Config Watchdog_config[] = {
-    {&WatchdogCC26XX_fxnTable, &watchdogCC26XXObjects[0], &watchdogCC26XXHWAttrs[0]},
-    {NULL, NULL, NULL},
+const Watchdog_Config Watchdog_config[CC2650_WATCHDOGCOUNT] = {
+    {
+      .fxnTablePtr = &WatchdogCC26XX_fxnTable, 
+      .object = &watchdogCC26XXObjects[0], 
+      .hwAttrs = &watchdogCC26XXHWAttrs[0]
+    },
 }; 
 
 /* Also used to check status for initialization */
@@ -154,4 +157,8 @@ void Watchdog_Params_init(Watchdog_Params *params)
 void Watchdog_setReload(Watchdog_Handle handle, uint32_t value)
 {
     handle->fxnTablePtr->watchdogSetReload(handle, value);
+}
+uint32_t Watchdog_convertMsToTicks(Watchdog_Handle handle, uint32_t milliseconds)
+{
+    return (handle->fxnTablePtr->watchdogConvertMsToTicks(milliseconds));
 }

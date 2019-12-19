@@ -347,7 +347,6 @@
           <state>$PROJ_DIR$\..\..\source\profile</state>
           <state>$PROJ_DIR$\..\..\source\driver\uart</state>
           <state>$PROJ_DIR$\..\..\source\driver\gpio</state>
-          <state>$PROJ_DIR$\..\..\..\common\display</state>
           <state>$PROJ_DIR$\..\..\..\target\LAUNCHIOT_CC2650_RGZ</state>
           <state>$PROJ_DIR$\..\..\source\driver\Watchdog</state>
         </option>
@@ -2154,6 +2153,12 @@
     <name>GY_SerialPort</name>
     <group>
       <name>WDT</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\Watchdog\boardWDT.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\Watchdog\boardWDT.h</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\..\..\source\driver\Watchdog\Watchdog.c</name>
       </file>

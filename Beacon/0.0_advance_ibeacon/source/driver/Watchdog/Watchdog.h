@@ -418,6 +418,8 @@ extern void Watchdog_Params_init(Watchdog_Params *params);
  */
 extern void Watchdog_setReload(Watchdog_Handle handle, uint32_t value);
 
+
+extern uint32_t Watchdog_convertMsToTicks(Watchdog_Handle handle, uint32_t milliseconds);
 #ifdef __cplusplus
 }
 #endif

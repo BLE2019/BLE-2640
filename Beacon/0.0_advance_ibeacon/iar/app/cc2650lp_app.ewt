@@ -2412,6 +2412,12 @@
     <group>
       <name>WDT</name>
       <file>
+        <name>$PROJ_DIR$\..\..\source\driver\Watchdog\boardWDT.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\source\driver\Watchdog\boardWDT.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\source\driver\Watchdog\Watchdog.c</name>
       </file>
       <file>

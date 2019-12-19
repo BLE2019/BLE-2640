@@ -76,9 +76,9 @@
     #include <../LAUNCHIOT_CC2650_RSM/LAUNCHIOT_CC2650_RSM.c>
 #else // unknown board
     #error "***ERROR*** Invalid Board Specified! Please see board.h for options."
- 
-/*
-*  ============================= WatchDog End============================
-*/
+#if defined(__TI_COMPILER_VERSION__)
+#pragma DATA_SECTION(Watchdog_config, ".const:Watchdog_config")
+#pragma DATA_SECTION(watchdogCC26XXHWAttrs, ".const:watchdogCC26XXHWAttrs")
+#endif
 
 #endif

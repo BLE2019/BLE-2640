@@ -75,7 +75,7 @@
 
 #include "osal_snv.h"
 #include "icall_apimsg.h"
-
+#include "hal_mcu.h"
 #include "util.h"
 
 #ifdef USE_RCOSC
@@ -94,7 +94,7 @@
 #endif // USE_FPGA | DEBUG_SW_TRACE
 
 #include "iBeaconProfile.h"
-#include <ti/drivers/Watchdog.h>
+#include "boardWDT.h"
 
 /*********************************************************************
  * CONSTANTS
@@ -141,6 +141,7 @@
 
 // How often to perform periodic event (in msec)
 #define SBP_VBATDETEC_PERIOD                     60000
+#define SBP_WDTCLEAR_PERIOD                      1000
 
 #ifdef FEATURE_OAD
 // The size of an OAD packet.
@@ -160,7 +161,8 @@
 #define SBP_CHAR_CHANGE_EVT                   0x0002
 #define SBP_CONN_EVT_END_EVT                  0x0004
 
-#define SBP_VBAT_DETEC_EVT                    0x0008  
+#define SBP_VBAT_DETEC_EVT                    0x0008
+#define SBP_WDT_CLEAR_EVT                     0x0010
 /*********************************************************************
  * TYPEDEFS
  */
@@ -190,6 +192,7 @@ static ICall_Semaphore sem;
 
 // Clock instances for internal periodic events.
 static Clock_Struct VBatDetecClock;             //电量检测时钟
+static Clock_Struct wdtClearClock;             //喂狗时钟
 
 // Queue object used for app messages
 static Queue_Struct appMsg;
@@ -354,6 +357,7 @@ static void SimpleBLEPeripheral_processStateChangeEvt(gaprole_States_t newState)
 static void SimpleBLEPeripheral_processCharValueChangeEvt(uint8_t paramID);
 
 static void VBatDetec_clockHandler(UArg arg);                   //周期性检测电量
+static void wdtClear_clockHandler(UArg a0);                     //喂狗
 
 static void SimpleBLEPeripheral_sendAttRsp(void);
 static void SimpleBLEPeripheral_freeAttRsp(uint8_t status);
@@ -375,7 +379,6 @@ void SimpleBLEPeripheral_keyChangeHandler(uint8_t keys);
 void RestoreFactorySettings(void);
 
 void VBatDetection(void);        //周期性检测电池电量
-void wdtInitFxn();
 /*********************************************************************
  * PROFILE CALLBACKS
  */
@@ -488,6 +491,9 @@ static void SimpleBLEPeripheral_init(void)
   Util_constructClock(&VBatDetecClock, VBatDetec_clockHandler,
                       SBP_VBATDETEC_PERIOD, SBP_VBATDETEC_PERIOD, true, SBP_VBAT_DETEC_EVT);
   
+  //喂狗
+  Util_constructClock(&wdtClearClock, wdtClear_clockHandler,
+                      SBP_WDTCLEAR_PERIOD, SBP_WDTCLEAR_PERIOD, true, SBP_WDT_CLEAR_EVT);
   // Setup the GAP
   GAP_SetParamValue(TGAP_CONN_PAUSE_PERIPHERAL, DEFAULT_CONN_PAUSE_PERIPHERAL);
 
@@ -622,8 +628,6 @@ static void SimpleBLEPeripheral_init(void)
   GATT_RegisterForMsgs(selfEntity);
 
   HCI_LE_ReadMaxDataLenCmd();
-  
-  wdtInitFxn();
 }
 
 /*********************************************************************
@@ -648,7 +652,7 @@ static void SimpleBLEPeripheral_taskFxn(UArg a0, UArg a1)
     // message is queued to the message receive queue of the thread or when
     // ICall_signal() function is called onto the semaphore.
     ICall_Errno errno = ICall_wait(ICALL_TIMEOUT_FOREVER);
-
+    Watchdog_clear(watchdog);
     if (errno == ICALL_ERRNO_SUCCESS)
     {
       ICall_EntityID dest;
@@ -712,10 +716,15 @@ static void SimpleBLEPeripheral_taskFxn(UArg a0, UArg a1)
         }
       }
     }
-
+    if (events & SBP_WDT_CLEAR_EVT)            //喂狗
+    {
+      events &= ~SBP_WDT_CLEAR_EVT;
+      Watchdog_clear(watchdog);
+    }
     if (events & SBP_VBAT_DETEC_EVT)            //周期性检测电池电量
     {
       events &= ~SBP_VBAT_DETEC_EVT;
+      Watchdog_clear(watchdog);
       VBatDetection();
     }
 
@@ -1313,6 +1322,23 @@ static void VBatDetec_clockHandler(UArg a0)
   Semaphore_post(sem);
 }
 /*********************************************************************
+ * @fn      wdtClear_clockHandler
+ *
+ * @brief   Handler function for clock timeouts.
+ *
+ * @param   arg - event type
+ *
+ * @return  None.
+ */
+static void wdtClear_clockHandler(UArg a0)
+{
+  // Store the event.
+  events |= SBP_WDT_CLEAR_EVT;
+
+  // Wake up the application.
+  Semaphore_post(sem);
+}
+/*********************************************************************
  * @fn      SimpleBLEPeripheral_enqueueMsg
  *
  * @brief   Creates a message and puts the message in RTOS queue.
@@ -1422,25 +1448,7 @@ void VBatDetection(void)        //周期性检测电池电量
     GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(advertData), advertData);
 }
 
-Watchdog_Handle watchdog;
 
-void wdtCallback(UArg a0) 
-{
-	Watchdog_clear(watchdog);
-}
- 
-void wdtInitFxn() 
-{
-	Watchdog_Params wp;
-
-	Watchdog_Params_init(&wp);
-	wp.callbackFxn    = wdtCallback;
-	wp.debugStallMode = Watchdog_DEBUG_STALL_ON;
-	wp.resetMode      = Watchdog_RESET_ON;
- 
-	watchdog = Watchdog_open(Board_WATCHDOG0, &wp);
-	Watchdog_setReload(watchdog, 5*1500000); // 1sec (WDT runs always at 48MHz/32)
-}
 
 /*********************************************************************
 *********************************************************************/

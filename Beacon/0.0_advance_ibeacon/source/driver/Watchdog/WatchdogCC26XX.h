@@ -132,6 +132,7 @@ extern const Watchdog_FxnTable WatchdogCC26XX_fxnTable;
 typedef struct WatchdogCC26XX_HWAttrs {
     unsigned int baseAddr;       /*!< Base adddress for Watchdog */
     unsigned int intNum;         /*!< WDT interrupt number */
+    unsigned int reloadValue;
 } WatchdogCC26XX_HWAttrs;
 
 /*!
