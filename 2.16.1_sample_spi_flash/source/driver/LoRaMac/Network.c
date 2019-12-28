@@ -364,8 +364,8 @@ void LoRaDataSEND(void)
       uint8_t Data[5] = {0x30,0x31,0x32,0x33,0x34};
       p_stUplinkDataBuf->byPort ==200;
       memcpy(&p_stUplinkDataBuf->a_byDataBuf[0],Data,5);
-      p_stUplinkDataBuf->byDataSize ==5;
-      p_stUplinkDataBuf->byType == 0;
+      p_stUplinkDataBuf->byDataSize =5;
+      p_stUplinkDataBuf->byType = 0;
       if(p_stUplinkDataBuf->byType == 0)
       {
           l_stMcpsReq.Type = MCPS_UNCONFIRMED;
